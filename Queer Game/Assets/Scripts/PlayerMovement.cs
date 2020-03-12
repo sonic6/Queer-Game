@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public Camera myCam;
     public NavMeshAgent agent;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+    
 
     // Update is called once per frame
     void Update()
@@ -19,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+            
 
             if(Physics.Raycast(ray, out hit))
             {
@@ -29,6 +27,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("");
+        if (other.GetComponent<TalkTrigger>())
+        {
+            Verses.myNpc = other.transform.parent.GetComponent<NpcBehaviour>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<TalkTrigger>())
+        {
+            Verses.myNpc = null;
+        }
     }
 }
