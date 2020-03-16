@@ -30,6 +30,7 @@ public class NpcBehaviour : MonoBehaviour
         if (materialRequired <= materialUsed && argumentRequired <= argumentUsed)
         {
             isFollower = true;
+            FollowerCounter.AddFollower();
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;
             aiAgent.stoppingDistance = 2; //The distance this npc will keep from the player while following
         }
