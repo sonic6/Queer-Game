@@ -4,7 +4,9 @@ using UnityEngine.AI;
 public class NpcBehaviour : MonoBehaviour
 {
     private GameObject player; //This is the player gameobject
-    private bool isFollower; //When the value of this bool is true, it means this NPC is a follower
+
+    [Tooltip("This bool is activated once the player has successfully converted this NPC to a follower")]
+    public bool isFollower; //When the value of this bool is true, it means this NPC is a follower
 
     [Tooltip("This is how much material points this npc requires")]
     public int materialRequired;
