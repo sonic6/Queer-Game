@@ -56,8 +56,10 @@ public class EnemyController : MonoBehaviour
         canvasSize.localScale = new Vector3(canvasSize.localScale.x - subtraction * Time.deltaTime, canvasSize.localScale.y, canvasSize.localScale.z);
         if (canvasSize.localScale.x <= 0)
         {
+            npc.GetComponent<NpcBehaviour>().convertedByEnemy = true;
             npcs.Remove(npcs[0]);
             pollute = false;
+            FollowerCounter.CheckNonPollutedNpcs();
         }
     }
 }

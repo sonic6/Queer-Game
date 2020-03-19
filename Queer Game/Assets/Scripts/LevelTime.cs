@@ -5,7 +5,7 @@ public class LevelTime : MonoBehaviour
 {
     [SerializeField] float myMinutes;
     [SerializeField] float totalSeconds;
-    [SerializeField] GameObject LoseScreen;
+    
     [SerializeField] Text timeText;
 
     // Start is called before the first frame update
@@ -30,11 +30,7 @@ public class LevelTime : MonoBehaviour
     {
         TimeDisplay();
 
-        if(totalSeconds <= 0 && Time.timeScale != 0)
-        {
-            Time.timeScale = 0;
-            LoseScreen.SetActive(true);
-
-        }
+        if (totalSeconds <= 0 && Time.timeScale != 0)
+            WinOrLose.LoseGame();
     }
 }

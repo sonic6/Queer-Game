@@ -5,18 +5,19 @@ public class NpcBehaviour : MonoBehaviour
 {
     private GameObject player; //This is the player gameobject
 
-    [Tooltip("This bool is activated once the player has successfully converted this NPC to a follower")]
-    public bool isFollower; //When the value of this bool is true, it means this NPC is a follower
+    [HideInInspector] public bool convertedByEnemy = false; //If this bool is true it means the player shouldn' be able to convert this npc to their side
+
+    [HideInInspector] public bool isFollower = false; //When the value of this bool is true, it means this NPC is a follower
 
     [Tooltip("This is how much material points this npc requires")]
     public int materialRequired;
     [Tooltip("This is how much argument points this npc requires")]
     public int argumentRequired;
 
-    [Tooltip("This is how much material points the player has used for this npc")]
-    public int materialUsed;
-    [Tooltip("This is how much argument points the player has used for this npc")]
-    public int argumentUsed;
+    //This is how much material points the player has used for this npc
+    [HideInInspector] public int materialUsed;
+    //This is how much argument points the player has used for this npc
+    [HideInInspector] public int argumentUsed;
 
     private NavMeshAgent aiAgent;
 

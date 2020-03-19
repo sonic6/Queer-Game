@@ -36,6 +36,7 @@ public class Verses : MonoBehaviour
             //Do stuff
         }
 
-        myNpc.FollowPlayer();
+        if(myNpc != null)
+            myNpc.FollowPlayer();
     }
 }

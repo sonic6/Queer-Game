@@ -682,6 +682,7 @@ GameObject:
   - component: {fileID: 500976903}
   - component: {fileID: 500976906}
   - component: {fileID: 500976907}
+  - component: {fileID: 500976908}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -751,7 +752,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myMinutes: 10
   totalSeconds: 0
-  LoseScreen: {fileID: 1099782516}
   timeText: {fileID: 643425800}
 --- !u!114 &500976907
 MonoBehaviour:
@@ -766,6 +766,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followersUi: {fileID: 1204792180}
+  requiredConverts: 5
+--- !u!114 &500976908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500976902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e62779159d56bb498dd1f4165027af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiScreen: {fileID: 1099782516}
 --- !u!1 &521309443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1840,7 +1854,7 @@ GameObject:
   - component: {fileID: 1099782518}
   - component: {fileID: 1099782517}
   m_Layer: 5
-  m_Name: Lose Screen
+  m_Name: Win or Lose Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

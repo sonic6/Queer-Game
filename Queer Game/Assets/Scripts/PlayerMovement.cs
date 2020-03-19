@@ -27,10 +27,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<TalkTrigger>())
+        if (other.GetComponent<TalkTrigger>() && other.transform.parent.GetComponent<NpcBehaviour>().convertedByEnemy == false)
         {
             Verses.myNpc = other.transform.parent.GetComponent<NpcBehaviour>();
         }
+
+        //This else statement is just for debugging
+        else if (other.GetComponent<TalkTrigger>() && other.transform.parent.GetComponent<NpcBehaviour>().convertedByEnemy == true)
+            print("This Npc can't be converted anymore");
     }
 
     private void OnTriggerExit(Collider other)
