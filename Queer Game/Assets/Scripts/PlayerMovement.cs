@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,7 +20,10 @@ public class PlayerMovement : MonoBehaviour
 
             if(Physics.Raycast(ray, out hit))
             {
-                agent.SetDestination(hit.point);
+                if (EventSystem.current.IsPointerOverGameObject(-1)) //If the mouse pointer is over a non-gameobject (UI)
+                    return;
+                else
+                    agent.SetDestination(hit.point);
             }
         }
     }
