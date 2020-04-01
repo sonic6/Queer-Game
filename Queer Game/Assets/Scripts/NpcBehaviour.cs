@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations;
 
 public class NpcBehaviour : MonoBehaviour
 {
+    private Animator myAnimator; 
     private GameObject player; //This is the player gameobject
 
     [HideInInspector] public bool convertedByEnemy = false; //If this bool is true it means the player shouldn' be able to convert this npc to their side
@@ -23,6 +25,7 @@ public class NpcBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        myAnimator = GetComponentInChildren<Animator>();
         transform.GetChild(0).gameObject.AddComponent<TalkTrigger>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
         aiAgent = GetComponent<NavMeshAgent>();
@@ -39,8 +42,23 @@ public class NpcBehaviour : MonoBehaviour
         }
     }
 
+    private void HandleAnimations()
+    {
+        if (aiAgent.velocity.magnitude > 1)
+        {
+            myAnimator.SetBool("idle", false);
+            myAnimator.SetBool("walk", true);
+        }
+        else if (aiAgent.velocity.magnitude == 0)
+        {
+            myAnimator.SetBool("walk", false);
+            myAnimator.SetBool("idle", true);
+        }
+    }
+
     private void FixedUpdate()
     {
+        HandleAnimations();
         if(isFollower)
             aiAgent.destination = player.transform.position;
     }
