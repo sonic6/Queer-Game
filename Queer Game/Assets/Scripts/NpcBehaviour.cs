@@ -1,9 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations;
 
 public class NpcBehaviour : MonoBehaviour
 {
+    [Tooltip("The walking speed of this gameobjects ai agent")]
+    [SerializeField] float walkingSpeed;
+
+    [Tooltip("The running speed of this gameobjects ai agent")]
+    [SerializeField] float runningSpeed;
+
+    [Tooltip("The allowed distance between this ai agent and their destination before they start running towards it")]
+    [SerializeField] float allowedDistance;
+
     private Animator myAnimator; 
     private GameObject player; //This is the player gameobject
 
@@ -44,16 +52,51 @@ public class NpcBehaviour : MonoBehaviour
 
     private void HandleAnimations()
     {
-        if (aiAgent.velocity.magnitude > 1)
+        Vector2 vector = CalculateDistance();
+
+        if (aiAgent.velocity.magnitude == 0)
         {
-            myAnimator.SetBool("idle", false);
-            myAnimator.SetBool("walk", true);
-        }
-        else if (aiAgent.velocity.magnitude == 0)
-        {
-            myAnimator.SetBool("walk", false);
+            DisableAllParameters();
             myAnimator.SetBool("idle", true);
         }
+
+        if (aiAgent.velocity.magnitude > 0 && (vector.x < allowedDistance && vector.y < allowedDistance))
+        {
+            DisableAllParameters();
+            myAnimator.SetBool("walk", true);
+            aiAgent.speed = walkingSpeed;
+        }
+        
+        else if (aiAgent.velocity.magnitude > 0 && (vector.x > allowedDistance && vector.y > allowedDistance))
+        {
+            DisableAllParameters();
+            myAnimator.SetBool("run", true);
+            aiAgent.speed = runningSpeed;
+        }
+
+        else if(aiAgent.velocity.magnitude > 0 && (vector.x > allowedDistance*1.5f && vector.y > allowedDistance*1.5f))
+        {
+            DisableAllParameters();
+            myAnimator.SetBool("fastRun", true);
+            aiAgent.speed = runningSpeed*1.3f;
+        }
+    }
+
+    void DisableAllParameters()
+    {
+        myAnimator.SetBool("idle", false);
+        myAnimator.SetBool("walk", false);
+        myAnimator.SetBool("run", false);
+    }
+
+    private Vector2 CalculateDistance()
+    {
+        float distanceX;
+        float distanceZ;
+        distanceX = Mathf.Abs(player.transform.position.x - gameObject.transform.position.x);
+        distanceZ = Mathf.Abs(player.transform.position.z - gameObject.transform.position.z);
+        Vector2 vec = new Vector2(distanceX, distanceZ);
+        return vec;
     }
 
     private void FixedUpdate()
