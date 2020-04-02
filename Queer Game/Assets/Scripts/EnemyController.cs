@@ -11,10 +11,13 @@ public class EnemyController : MonoBehaviour
 
     [Tooltip("The time it takes for this Enemy to pollute an NPC")]
     [SerializeField] float timeToPollute;
+
+    private Animator myAnimator;
     
     void Start()
     {
         me = GetComponent<NavMeshAgent>();
+        myAnimator = GetComponentInChildren<Animator>();
         FindNpcs();
     }
 
@@ -35,10 +38,25 @@ public class EnemyController : MonoBehaviour
     
     void Update()
     {
+        Animate();
         if(npcs.Count != 0)
             me.SetDestination(npcs[0].transform.position);
         if (pollute)
             PolluteNpc(npcs[0]);
+    }
+
+    void Animate()
+    {
+        if(me.velocity.magnitude == 0)
+        {
+            myAnimator.SetBool("walk", false);
+            myAnimator.SetBool("idle", true);
+        }
+        else
+        {
+            myAnimator.SetBool("idle", false);
+            myAnimator.SetBool("walk", true);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
