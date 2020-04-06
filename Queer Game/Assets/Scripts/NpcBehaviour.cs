@@ -3,6 +3,10 @@ using UnityEngine.AI;
 
 public class NpcBehaviour : MonoBehaviour
 {
+    bool runParam; //To check if this character's animator has a run parameter
+    bool fastRunParam; //To check if this character's animator has a fastRun parameter
+    bool talkParam; //To check if this character's animator has a talk parameter
+
     [Tooltip("The walking speed of this gameobjects ai agent")]
     [SerializeField] float walkingSpeed;
 
@@ -34,9 +38,25 @@ public class NpcBehaviour : MonoBehaviour
     private void Awake()
     {
         myAnimator = GetComponentInChildren<Animator>();
+        HasParameter("run", myAnimator, runParam);
+        HasParameter("talk", myAnimator, talkParam);
+        HasParameter("fastRun", myAnimator, fastRunParam);
         transform.GetChild(0).gameObject.AddComponent<TalkTrigger>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
         aiAgent = GetComponent<NavMeshAgent>();
+    }
+
+    public void HasParameter(string paramName, Animator animator, bool myBool)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName)
+                myBool = true;
+
+            else
+                myBool = false;
+        }
+        
     }
 
     public void FollowPlayer()
@@ -70,14 +90,16 @@ public class NpcBehaviour : MonoBehaviour
         else if (aiAgent.velocity.magnitude > 0 && (vector.x > allowedDistance && vector.y > allowedDistance))
         {
             DisableAllParameters();
-            myAnimator.SetBool("run", true);
+            if (runParam) //Not all characters have run as a parameter
+                myAnimator.SetBool("run", true);
             aiAgent.speed = runningSpeed;
         }
 
         else if(aiAgent.velocity.magnitude > 0 && (vector.x > allowedDistance*1.5f && vector.y > allowedDistance*1.5f))
         {
             DisableAllParameters();
-            myAnimator.SetBool("fastRun", true);
+            if (fastRunParam) //Not all characters have fastRun as a parameter
+                myAnimator.SetBool("fastRun", true);
             aiAgent.speed = runningSpeed*1.3f;
         }
     }
@@ -86,7 +108,8 @@ public class NpcBehaviour : MonoBehaviour
     {
         myAnimator.SetBool("idle", false);
         myAnimator.SetBool("walk", false);
-        myAnimator.SetBool("run", false);
+        if(runParam)
+            myAnimator.SetBool("run", false);
     }
 
     private Vector2 CalculateDistance()
