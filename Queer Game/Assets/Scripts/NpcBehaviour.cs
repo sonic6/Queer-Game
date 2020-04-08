@@ -3,21 +3,14 @@ using UnityEngine.AI;
 
 public class NpcBehaviour : MonoBehaviour
 {
-    bool runParam; //To check if this character's animator has a run parameter
-    bool fastRunParam; //To check if this character's animator has a fastRun parameter
-    bool talkParam; //To check if this character's animator has a talk parameter
+    /////////Several other scripts inherit variables from this script////////
+
 
     [Tooltip("The walking speed of this gameobjects ai agent")]
-    [SerializeField] float walkingSpeed;
-
-    [Tooltip("The running speed of this gameobjects ai agent")]
-    [SerializeField] float runningSpeed;
-
-    [Tooltip("The allowed distance between this ai agent and their destination before they start running towards it")]
-    [SerializeField] float allowedDistance;
-
-    private Animator myAnimator; 
-    private GameObject player; //This is the player gameobject
+    public float walkingSpeed;
+    
+    [HideInInspector] public Animator myAnimator;
+    [HideInInspector] public GameObject player; //This is the player gameobject
 
     [HideInInspector] public bool convertedByEnemy = false; //If this bool is true it means the player shouldn' be able to convert this npc to their side
 
@@ -33,33 +26,9 @@ public class NpcBehaviour : MonoBehaviour
     //This is how much argument points the player has used for this npc
     [HideInInspector] public int argumentUsed;
 
-    private NavMeshAgent aiAgent;
+    [HideInInspector] public NavMeshAgent aiAgent;
 
-    private void Awake()
-    {
-        myAnimator = GetComponentInChildren<Animator>();
-        HasParameter("run", myAnimator, runParam);
-        HasParameter("talk", myAnimator, talkParam);
-        HasParameter("fastRun", myAnimator, fastRunParam);
-        transform.GetChild(0).gameObject.AddComponent<TalkTrigger>();
-        player = FindObjectOfType<PlayerMovement>().gameObject;
-        aiAgent = GetComponent<NavMeshAgent>();
-    }
-
-    public void HasParameter(string paramName, Animator animator, bool myBool)
-    {
-        foreach (AnimatorControllerParameter param in animator.parameters)
-        {
-            if (param.name == paramName)
-                myBool = true;
-
-            else
-                myBool = false;
-        }
-        
-    }
-
-    public void FollowPlayer()
+    public void FollowPlayer() //Gets called in "Verses" script
     {
         if (materialRequired <= materialUsed && argumentRequired <= argumentUsed)
         {
@@ -70,49 +39,7 @@ public class NpcBehaviour : MonoBehaviour
         }
     }
 
-    private void HandleAnimations()
-    {
-        Vector2 vector = CalculateDistance();
-
-        if (aiAgent.velocity.magnitude == 0)
-        {
-            DisableAllParameters();
-            myAnimator.SetBool("idle", true);
-        }
-
-        if (aiAgent.velocity.magnitude > 0 && (vector.x < allowedDistance && vector.y < allowedDistance))
-        {
-            DisableAllParameters();
-            myAnimator.SetBool("walk", true);
-            aiAgent.speed = walkingSpeed;
-        }
-        
-        else if (aiAgent.velocity.magnitude > 0 && (vector.x > allowedDistance && vector.y > allowedDistance))
-        {
-            DisableAllParameters();
-            if (runParam) //Not all characters have run as a parameter
-                myAnimator.SetBool("run", true);
-            aiAgent.speed = runningSpeed;
-        }
-
-        else if(aiAgent.velocity.magnitude > 0 && (vector.x > allowedDistance*1.5f && vector.y > allowedDistance*1.5f))
-        {
-            DisableAllParameters();
-            if (fastRunParam) //Not all characters have fastRun as a parameter
-                myAnimator.SetBool("fastRun", true);
-            aiAgent.speed = runningSpeed*1.3f;
-        }
-    }
-
-    void DisableAllParameters()
-    {
-        myAnimator.SetBool("idle", false);
-        myAnimator.SetBool("walk", false);
-        if(runParam)
-            myAnimator.SetBool("run", false);
-    }
-
-    private Vector2 CalculateDistance()
+    public Vector2 CalculateDistance()
     {
         float distanceX;
         float distanceZ;
@@ -120,13 +47,6 @@ public class NpcBehaviour : MonoBehaviour
         distanceZ = Mathf.Abs(player.transform.position.z - gameObject.transform.position.z);
         Vector2 vec = new Vector2(distanceX, distanceZ);
         return vec;
-    }
-
-    private void FixedUpdate()
-    {
-        HandleAnimations();
-        if(isFollower)
-            aiAgent.destination = player.transform.position;
     }
 }
 

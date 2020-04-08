@@ -15,11 +15,7 @@ public class Verses : MonoBehaviour
 
     [SerializeField] int strength;
     public static NpcBehaviour myNpc;
-
-    //private void Start()
-    //{
-    //    player = FindObjectOfType<PlayerMovement>();
-    //}
+    
     
     public void UseButton()
     {
@@ -36,7 +32,7 @@ public class Verses : MonoBehaviour
             //Do stuff
         }
 
-        if(myNpc != null)
+        if(myNpc != null && myNpc.isFollower == false) //If this script has identified an NPC and it's not already a follower
             myNpc.FollowPlayer();
     }
 }
