@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using HutongGames.PlayMaker;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Camera myCam;
     public NavMeshAgent agent;
-    
     
 
     // Update is called once per frame
@@ -20,10 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
             if(Physics.Raycast(ray, out hit))
             {
-                if (EventSystem.current.IsPointerOverGameObject(-1)) //If the mouse pointer is over a non-gameobject (UI)
+                if (EventSystem.current.IsPointerOverGameObject(-1)) //If the mouse pointer is over a UI
                     return;
                 else
+                {
                     agent.SetDestination(hit.point);
+                }
             }
         }
     }
