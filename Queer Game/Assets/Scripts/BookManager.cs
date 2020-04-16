@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class BookManager : MonoBehaviour
 {
+    public static GameObject infoImage; //Used by Verses script
+    [SerializeField] GameObject setInfoImage; //Used to set the value of infoImage through the inspector
+
     [UnityEngine.Tooltip("The gameobject that all the 'pages' are attached to")]
     [SerializeField] GameObject pagesHolder;
 
@@ -12,6 +15,11 @@ public class BookManager : MonoBehaviour
 
     PlayMakerFSM[] pages; //The pages where the "Memes" are
     Button[] pageButtons; //The buttons on each page in pages
+
+    private void Awake()
+    {
+        infoImage = setInfoImage;
+    }
 
     // Start is called before the first frame update
     void Start()
