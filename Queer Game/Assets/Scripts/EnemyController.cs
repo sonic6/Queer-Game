@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent me;
     private bool pollute; //When this bool is active, this enemy can start affecting an NPC
     private float subtraction;
+    [HideInInspector] public bool caughtByPlayer = false; //Becomes true when the player is in the enemy's trigger box
 
     [Tooltip("The time it takes for this Enemy to pollute an NPC")]
     [SerializeField] float timeToPollute;
@@ -19,6 +20,7 @@ public class EnemyController : MonoBehaviour
         me = GetComponent<NavMeshAgent>();
         myAnimator = GetComponentInChildren<Animator>();
         FindNpcs();
+        FindNewTarget();
     }
 
     void FindNpcs()
@@ -39,10 +41,22 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         Animate();
-        if(npcs.Count != 0)
-            me.SetDestination(npcs[0].transform.position);
+        //if(npcs.Count != 0 && caughtByPlayer == false)
+        //    me.SetDestination(npcs[0].transform.position);
         if (pollute)
             PolluteNpc(npcs[0]);
+    }
+
+    public void FindNewTarget()
+    {
+        if (npcs.Count != 0)
+            me.SetDestination(npcs[0].transform.position);
+    }
+
+    public void WaitForPlayerAttack(Transform player)
+    {
+        me.SetDestination(transform.position);
+        me.transform.LookAt(player);
     }
 
     void Animate()
@@ -78,6 +92,7 @@ public class EnemyController : MonoBehaviour
             npcs.Remove(npcs[0]);
             pollute = false;
             FollowerCounter.CheckNonPollutedNpcs();
+            FindNewTarget();
         }
     }
 }
