@@ -48,6 +48,11 @@ public class PlayerMovement : MonoBehaviour
         //This else statement is just for debugging
         else if (other.GetComponent<TalkTrigger>() && other.transform.parent.GetComponent<NpcBehaviour>().convertedByEnemy == true)
             print("This Npc can't be converted anymore");
+
+        else if (other.GetComponent<GroupTool>()) //if the NPCs are in a group
+        {
+            Verses.myGroup = other.GetComponent<GroupTool>();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -55,6 +60,18 @@ public class PlayerMovement : MonoBehaviour
         if (other.GetComponent<TalkTrigger>())
         {
             Verses.myNpc = null;
+            foreach(GameObject card in Verses.usedCards) //If the player leaves before recruiting a follower. reactivate the used cards
+            {
+                card.SetActive(true);
+            }
+        }
+        if (other.GetComponent<GroupTool>())
+        {
+            Verses.myGroup = null;
+            foreach (GameObject card in Verses.usedCards) //If the player leaves before recruiting a follower. reactivate the used cards
+            {
+                card.SetActive(true);
+            }
         }
     }
 }
