@@ -7,11 +7,14 @@ public class PlayerMovement : MonoBehaviour
 {
     public Camera myCam;
     public NavMeshAgent agent;
+    [SerializeField] Vector3 cameraPosition;
     
 
     // Update is called once per frame
     void Update()
     {
+        CameraFollow();
+
         if(Input.GetMouseButtonDown(0))
         {
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
@@ -28,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    void CameraFollow()
+    {
+        myCam.transform.position = new Vector3(transform.position.x + cameraPosition.x, cameraPosition.y, transform.position.z + cameraPosition.z);
     }
 
     private void OnTriggerEnter(Collider other)
