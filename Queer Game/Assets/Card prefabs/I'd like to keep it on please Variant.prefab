@@ -12,10 +12,19 @@ PrefabInstance:
       propertyPath: strength
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: description
+      value: "In a moment of weakness, the queen Valentina pleaded to the lords that
+        they not make her take off her battle mask and show her true powers. \u201CI\u2019d
+        like to keep it on please\u201D she said, but alas, her prayer was not accepted,
+        and she lost the battle. That was a pivotal moment in Queer history and was
+        documented for generations ahead to learn from. "
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
-      value: I'd like to keep it on please
+      value: I'd like to keep it on please Variant
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090098, guid: 86492584827496149bf730155522254b,
         type: 3}

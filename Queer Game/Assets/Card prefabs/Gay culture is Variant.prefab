@@ -17,10 +17,20 @@ PrefabInstance:
       propertyPath: strength
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: description
+      value: "Gay culture is whatever the gaylords and their follower decide it is.
+        It\u2019s fluid and constantly changing. One day gay culture could mean \u201CFeeling
+        very attacked\u201D at the slightest inconvenience and the next day it could
+        mean choosing to play the female character\u2019s in video games. Gay culture
+        is a divine set of practices that not even Boyle themselves know they\u2019re
+        practicing until someone tweets it out in a meme to inform the masses.  "
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
-      value: Gay culture is
+      value: Gay culture is Variant
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090098, guid: 86492584827496149bf730155522254b,
         type: 3}

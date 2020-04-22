@@ -29,6 +29,9 @@ public class Verses : MonoBehaviour
 
     public static List<GameObject> usedCards = new List<GameObject>(); //This list is to identify the cards that have just been used and aren't deleted yet
 
+    [TextArea(5,20)]
+    [SerializeField] private string description;
+
     private void Start()
     {
         GetImageComponentFromChildren();
@@ -97,5 +100,6 @@ public class Verses : MonoBehaviour
         BookManager.infoImage.gameObject.SetActive(!BookManager.infoImage.gameObject.activeSelf);
         BookManager.infoImage.image.material.mainTexture = myImage.mainTexture;
         BookManager.infoImage.title.text = myTitle;
+        BookManager.infoImage.description.text = description;
     }
 }

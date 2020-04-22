@@ -17,10 +17,18 @@ PrefabInstance:
       propertyPath: KindOfCard
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: description
+      value: 'Spilling the tea is an artform that requires delicate awareness of
+        your surroundings and good hearing skills. A good tea spiller knows when
+        and where to spill the tea and brings only good tea for the spilling, no
+        nonsense, only the real tea supported by receipts. '
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
-      value: Spill the tea
+      value: Spill the tea Variant
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090098, guid: 86492584827496149bf730155522254b,
         type: 3}

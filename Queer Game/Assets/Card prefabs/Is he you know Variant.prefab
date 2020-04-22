@@ -17,10 +17,19 @@ PrefabInstance:
       propertyPath: strength
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: description
+      value: "The mention of the name of the Queers strikes fear in the souls of
+        the non-believers.  They can\u2019t even mutter the words to describe what
+        they\u2019re seeing when the see a Queer in the flesh and therefore the words
+        \u201CIs he\u2026 You know\u2026\u201D are often heard followed by a faint
+        hand gesture when a non-believer sees a Queer with their own eyes. "
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
-      value: Is he you know
+      value: Is he you know Variant
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090098, guid: 86492584827496149bf730155522254b,
         type: 3}

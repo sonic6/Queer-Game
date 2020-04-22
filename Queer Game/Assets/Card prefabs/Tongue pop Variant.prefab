@@ -17,10 +17,18 @@ PrefabInstance:
       propertyPath: strength
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: description
+      value: 'A tongue pop is a traditional queer signifier that something alarming
+        has happened or that hot tea was just spilled. It takes great tongue muscles
+        and a harmonious connection of body and soul to achieve the perfect tongue
+        pop. '
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
-      value: Tongue pop
+      value: Tongue pop Variant
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090098, guid: 86492584827496149bf730155522254b,
         type: 3}
