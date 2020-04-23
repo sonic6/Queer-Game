@@ -11,7 +11,7 @@ public class BookManager : MonoBehaviour
     [SerializeField] MemeExplainer setInfoImage; //Used to set the value of infoImage through the inspector
 
     [UnityEngine.Tooltip("The gameobject that all the 'pages' are attached to")]
-    [SerializeField] GameObject pagesHolder;
+    public GameObject pagesHolder;
 
     [UnityEngine.Tooltip("The gameobject that defines the 'up position' of the book")]
     [SerializeField] GameObject bookUpPos;
@@ -46,7 +46,6 @@ public class BookManager : MonoBehaviour
         {
             inHand = pagesHolder.GetComponentsInChildren<BoxCollider2D>();
             handCards = inHand.Length;
-            print(handCards);
         }
         int toDraw = cardPositions.Length - handCards;
         for (int i = 0; i < toDraw; i++)

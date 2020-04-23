@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GroupTool : MonoBehaviour
 {
-    public List<NpcBehaviour> npcs;
+    public List<NpcBehaviour> npcs; //The NPC members of this group
 
     [SerializeField]int argumentsRequired;
     [SerializeField]int materialsRequired;
@@ -54,6 +54,13 @@ public class GroupTool : MonoBehaviour
             Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
 
             BookManager.manager.DrawNewCards();
+
+            Verses[] cardsInHand = BookManager.manager.pagesHolder.GetComponentsInChildren<Verses>();
+            Verses.extraStrength += npcs.Count;
+            foreach (Verses card in cardsInHand)
+            {
+                card.AddExtraStrengthUi();
+            }
         }
     }
 }
