@@ -1,0 +1,8 @@
+newmtl plastic_wood
+map_Kd DefaultMaterial_Base_Color.png
+map_Pm DefaultMaterial_Metallic.png
+bump DefaultMaterial_Normal_DirectX.png
+disp DefaultMaterial_Height.png
+Kd 1 1 1
+d 1
+
