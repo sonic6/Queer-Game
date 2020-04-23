@@ -12,10 +12,18 @@ PrefabInstance:
       propertyPath: strength
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: description
+      value: "This saying is one piece of knowledge bestowed upon the followers of
+        Queerism by the goddess Gia Gunn herself. It is to remind those who stray
+        off the righteous path that what they currently want to do is not necessarily
+        what they are going to do\u2026"
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
-      value: What you wanna do
+      value: What you wanna do Variant
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090098, guid: 86492584827496149bf730155522254b,
         type: 3}

@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float timeToPollute;
 
     private Animator myAnimator;
+    bool foundGroup = false;
     
     void Start()
     {
@@ -44,13 +45,15 @@ public class EnemyController : MonoBehaviour
         //if(npcs.Count != 0 && caughtByPlayer == false)
         //    me.SetDestination(npcs[0].transform.position);
         if (pollute)
-            PolluteNpc(npcs[0]);
+            PolluteNpc(npcs[0], foundGroup);
     }
 
     public void FindNewTarget()
     {
         if (npcs.Count != 0)
+        {
             me.SetDestination(npcs[0].transform.position);
+        }
     }
 
     public void WaitForPlayerAttack(Transform player)
@@ -75,14 +78,28 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent.gameObject == npcs[0].gameObject)
+        if (other.GetComponent<TalkTrigger>() && other.transform.parent.gameObject == npcs[0].gameObject)
         {
             pollute = true;
             subtraction = npcs[0].GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
         }
+        else if (other.gameObject.GetComponent<GroupTool>())
+        {
+            foundGroup = true;
+            List<NpcBehaviour> myNpcs = other.GetComponent<GroupTool>().npcs;
+            foreach(NpcBehaviour npc in myNpcs)
+            {
+                if(npc.gameObject == npcs[0].gameObject)
+                {
+                    pollute = true;
+                    subtraction = npcs[0].GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+                }
+            }
+        }
+
     }
 
-    private void PolluteNpc(GameObject npc)
+    private void PolluteNpc(GameObject npc, bool isGroup)
     {
         Transform canvasSize = npc.GetComponentInChildren<Canvas>().transform;
         canvasSize.localScale = new Vector3(canvasSize.localScale.x - subtraction * Time.deltaTime, canvasSize.localScale.y, canvasSize.localScale.z);

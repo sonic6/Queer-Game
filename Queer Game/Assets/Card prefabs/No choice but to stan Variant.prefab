@@ -17,10 +17,17 @@ PrefabInstance:
       propertyPath: strength
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: description
+      value: 'When someone serves real goodness to strengthen the Queer peoples,
+        we have no choice but to STAN. It is mandatory. The scripture requires everyone
+        to STAN immediately. '
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
-      value: No choice but to stan
+      value: No choice but to stan Variant
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090098, guid: 86492584827496149bf730155522254b,
         type: 3}

@@ -4,8 +4,7 @@ using UnityEngine.AI;
 public class NpcBehaviour : MonoBehaviour
 {
     /////////Several other scripts inherit variables from this script////////
-
-
+    
     [Tooltip("The walking speed of this gameobjects ai agent")]
     public float walkingSpeed;
     
@@ -27,6 +26,7 @@ public class NpcBehaviour : MonoBehaviour
     [HideInInspector] public int argumentUsed;
 
     [HideInInspector] public NavMeshAgent aiAgent;
+    
 
     public void FollowPlayer() //Gets called in "Verses" script
     {
@@ -36,6 +36,21 @@ public class NpcBehaviour : MonoBehaviour
             FollowerCounter.AddFollower();
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;
             aiAgent.stoppingDistance = 2; //The distance this npc will keep from the player while following
+            
+
+            int nr = Verses.usedCards.Count;
+
+            for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
+            {
+                GameObject currentCard = Verses.usedCards[i];
+                BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
+                Destroy(currentCard);
+            }
+
+            Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
+
+            BookManager.manager.DrawNewCards();
+
         }
     }
 
