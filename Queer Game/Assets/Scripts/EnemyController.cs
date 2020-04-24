@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
+    List<NpcBehaviour> myNpcGroup = new List<NpcBehaviour>();
+    public static GameObject currentTarget;
     public List<GameObject> npcs; //For some reason causes the code not to work when private
     private NavMeshAgent me;
-    private bool pollute; //When this bool is active, this enemy can start affecting an NPC
     private float subtraction;
     [HideInInspector] public bool caughtByPlayer = false; //Becomes true when the player is in the enemy's trigger box
 
@@ -21,7 +23,8 @@ public class EnemyController : MonoBehaviour
         me = GetComponent<NavMeshAgent>();
         myAnimator = GetComponentInChildren<Animator>();
         FindNpcs();
-        FindNewTarget();
+        //EnemyDistanceTrigger.open = true;
+        StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
     }
 
     void FindNpcs()
@@ -42,17 +45,13 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         Animate();
-        //if(npcs.Count != 0 && caughtByPlayer == false)
-        //    me.SetDestination(npcs[0].transform.position);
-        if (pollute)
-            PolluteNpc(npcs[0], foundGroup);
     }
 
     public void FindNewTarget()
     {
         if (npcs.Count != 0)
         {
-            me.SetDestination(npcs[0].transform.position);
+            me.SetDestination(currentTarget.transform.position);
         }
     }
 
@@ -78,38 +77,86 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<TalkTrigger>() && other.transform.parent.gameObject == npcs[0].gameObject)
+        if (other.GetComponent<TalkTrigger>() && other.transform.parent.gameObject == currentTarget.gameObject)
         {
-            pollute = true;
-            subtraction = npcs[0].GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+            subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+            StartCoroutine(PolluteNpc(currentTarget));
         }
+
         else if (other.gameObject.GetComponent<GroupTool>())
         {
             foundGroup = true;
-            List<NpcBehaviour> myNpcs = other.GetComponent<GroupTool>().npcs;
-            foreach(NpcBehaviour npc in myNpcs)
+            myNpcGroup = other.GetComponent<GroupTool>().npcs;
+            foreach (NpcBehaviour npc in myNpcGroup)
             {
-                if(npc.gameObject == npcs[0].gameObject)
+                if (npc.gameObject == currentTarget)
                 {
-                    pollute = true;
-                    subtraction = npcs[0].GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+                    subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+                    StartCoroutine(PolluteGroup());
                 }
             }
         }
+        
 
     }
 
-    private void PolluteNpc(GameObject npc, bool isGroup)
+    IEnumerator PolluteGroup()
+    {
+        subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+        while (foundGroup == true)
+        {
+            foreach (NpcBehaviour npc in myNpcGroup)
+            {
+                if (npc.gameObject == currentTarget)
+                {
+                    
+                    Transform canvasSize = npc.GetComponentInChildren<Canvas>().transform;
+                    if (npc.GetComponent<NpcBehaviour>().convertedByEnemy == false)
+                    {
+                        canvasSize.localScale = new Vector3(canvasSize.localScale.x - subtraction * Time.deltaTime, canvasSize.localScale.y, canvasSize.localScale.z);
+                        if (canvasSize.localScale.x <= 0)
+                        {
+                            npc.GetComponent<NpcBehaviour>().convertedByEnemy = true;
+                            currentTarget = null;
+                            npcs.Remove(currentTarget);
+                            FollowerCounter.CheckNonPollutedNpcs();
+                            EnemyDistanceTrigger.pollutedNpcs.Add(npc.gameObject);
+                            StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
+                        }
+                    }
+                }
+                
+            }
+
+            if (currentTarget == myNpcGroup[myNpcGroup.Count - 1])
+            {
+                foundGroup = false;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator PolluteNpc(GameObject npc)
     {
         Transform canvasSize = npc.GetComponentInChildren<Canvas>().transform;
-        canvasSize.localScale = new Vector3(canvasSize.localScale.x - subtraction * Time.deltaTime, canvasSize.localScale.y, canvasSize.localScale.z);
-        if (canvasSize.localScale.x <= 0)
+        while (npc.GetComponent<NpcBehaviour>().convertedByEnemy == false)
         {
-            npc.GetComponent<NpcBehaviour>().convertedByEnemy = true;
-            npcs.Remove(npcs[0]);
-            pollute = false;
-            FollowerCounter.CheckNonPollutedNpcs();
-            FindNewTarget();
+            canvasSize.localScale = new Vector3(canvasSize.localScale.x - subtraction * Time.deltaTime, canvasSize.localScale.y, canvasSize.localScale.z);
+            if (canvasSize.localScale.x <= 0)
+            {
+                npc.GetComponent<NpcBehaviour>().convertedByEnemy = true;
+                currentTarget = null;
+                npcs.Remove(currentTarget);
+                FollowerCounter.CheckNonPollutedNpcs();
+                EnemyDistanceTrigger.pollutedNpcs.Add(npc.gameObject);
+                StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
+            }
+            yield return new WaitForEndOfFrame();
         }
+    }
+
+    private void PolluteNextInGroup()
+    {
+        subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
     }
 }

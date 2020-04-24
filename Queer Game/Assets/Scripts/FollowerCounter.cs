@@ -7,12 +7,12 @@ public class FollowerCounter : MonoBehaviour
     [SerializeField] Text followersUi;
     private static Text followerCount;
 
-    private static int npcCount;
+    public static int npcCount;
     public static int pollutedCount;
 
     [Tooltip("The required amount of NPCs to be converted to win this level")]
     [SerializeField] int requiredConverts;
-    private static int required;
+    public static int required;
 
     private void Start()
     {
