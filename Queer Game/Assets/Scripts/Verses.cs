@@ -11,16 +11,17 @@ public class Verses : MonoBehaviour
         Culture,
         Shade
     };
-
-    //private PlayerMovement player;
+    
     public CardKind KindOfCard;
 
     private Image myImage;
     [Tooltip("The title of this card which will be shown in bigger text in the when the player clicks the info button")]
     [SerializeField] string myTitle;
     [SerializeField] Text myStrength;
+    [SerializeField] Text myExtraPoints;
    
-    [SerializeField] int strength;
+    [SerializeField] int strength; //The main strength of this card
+    [HideInInspector] public static int extraStrength = 0; //The strength that's added per follower. Equals 0 on start
     public static NpcBehaviour myNpc;
     public static GroupTool myGroup;
     public static EnemyController myEnemy;
@@ -32,10 +33,15 @@ public class Verses : MonoBehaviour
     [TextArea(5,20)]
     [SerializeField] private string description;
 
+    private void Awake()
+    {
+        myStrength.text = strength.ToString();
+    }
+
     private void Start()
     {
         GetImageComponentFromChildren();
-        myStrength.text = strength.ToString();
+        
     }
 
     void GetImageComponentFromChildren()
@@ -101,5 +107,14 @@ public class Verses : MonoBehaviour
         BookManager.infoImage.image.material.mainTexture = myImage.mainTexture;
         BookManager.infoImage.title.text = myTitle;
         BookManager.infoImage.description.text = description;
+    }
+
+    /// <summary>
+    /// This function adds extra strength points to the play cards. "Number" is the amount of points to be added
+    /// </summary>
+    public void AddExtraStrengthUi()
+    {
+        myExtraPoints.text = "+" + extraStrength.ToString();
+        strength = strength + extraStrength;
     }
 }

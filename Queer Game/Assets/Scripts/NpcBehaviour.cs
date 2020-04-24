@@ -51,6 +51,13 @@ public class NpcBehaviour : MonoBehaviour
 
             BookManager.manager.DrawNewCards();
 
+            Verses[] cardsInHand = BookManager.manager.pagesHolder.GetComponentsInChildren<Verses>();
+            Verses.extraStrength++;
+            foreach (Verses card in cardsInHand)
+            {
+                card.AddExtraStrengthUi();
+            }
+
         }
     }
 
