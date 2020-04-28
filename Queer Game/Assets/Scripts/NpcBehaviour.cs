@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using QueerGame;
+using System.Collections.Generic;
+using System.Collections;
 
 public class NpcBehaviour : MonoBehaviour
 {
@@ -7,6 +10,8 @@ public class NpcBehaviour : MonoBehaviour
     
     [Tooltip("The walking speed of this gameobjects ai agent")]
     public float walkingSpeed;
+
+    private bool looping = true; //Used to start looping the FollowPlayerPosition coroutine
     
     [HideInInspector] public Animator myAnimator;
     [HideInInspector] public GameObject player; //This is the player gameobject
@@ -27,6 +32,59 @@ public class NpcBehaviour : MonoBehaviour
 
     [HideInInspector] public NavMeshAgent aiAgent;
     
+
+
+    private void OnMouseDown()
+    {
+        if (isFollower && Verses.extraStrength != 0)
+        {
+            print("off to work");
+            RemoveExtraStrengthUi();
+            RecruitOthers();
+        }
+    }
+
+    public void RemoveExtraStrengthUi()
+    {
+        Verses.extraStrength--;
+        Verses[] cards = BookManager.manager.pagesHolder.GetComponentsInChildren<Verses>();
+
+        foreach (Verses card in cards)
+        {
+            card.myExtraPoints.text = "+" + Verses.extraStrength.ToString();
+            if (Verses.extraStrength == 0)
+                card.myExtraPoints.text = "";
+            card.strength--;
+        }
+    }
+
+    void RecruitOthers()
+    {
+        
+        List<NpcBehaviour> npcs = QueerFunctions.FindAvailableNpcs();
+        Transform closest = npcs[0].transform;
+        foreach (NpcBehaviour npc in npcs)
+        {
+            float myDistance = QueerFunctions.FindDistanceBetweenVectors(npc.transform.position, transform.position);
+            float closesDistance = QueerFunctions.FindDistanceBetweenVectors(closest.transform.position, transform.position);
+            if (myDistance < closesDistance)
+                closest = npc.transform;
+        }
+
+        looping = false;
+        aiAgent.SetDestination(closest.transform.position);
+    }
+
+    IEnumerator FollowPlayerPosition() //Will work as an update to find the player's location but, can be stopped when needed
+    {
+        while(looping)
+        {
+            aiAgent.SetDestination(player.transform.position);
+            yield return new WaitForFixedUpdate();
+        }
+        yield return null;
+
+    }
 
     public void FollowPlayer() //Gets called in "Verses" script
     {
@@ -57,6 +115,8 @@ public class NpcBehaviour : MonoBehaviour
             {
                 card.AddExtraStrengthUi();
             }
+
+            StartCoroutine(FollowPlayerPosition());
 
         }
     }

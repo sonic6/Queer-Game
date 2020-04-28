@@ -72,7 +72,5 @@ public class BoyBehaviour : NpcBehaviour
     private void FixedUpdate()
     {
         HandleAnimations();
-        if (isFollower)
-            aiAgent.destination = player.transform.position;
     }
 }

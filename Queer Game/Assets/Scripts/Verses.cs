@@ -18,9 +18,9 @@ public class Verses : MonoBehaviour
     [Tooltip("The title of this card which will be shown in bigger text in the when the player clicks the info button")]
     [SerializeField] string myTitle;
     [SerializeField] Text myStrength;
-    [SerializeField] Text myExtraPoints;
-   
-    [SerializeField] int strength; //The main strength of this card
+    public Text myExtraPoints;
+
+    public int strength; //The main strength of this card
     [HideInInspector] public static int extraStrength = 0; //The strength that's added per follower. Equals 0 on start
     public static NpcBehaviour myNpc;
     public static GroupTool myGroup;
@@ -117,4 +117,6 @@ public class Verses : MonoBehaviour
         myExtraPoints.text = "+" + extraStrength.ToString();
         strength = strength + extraStrength;
     }
+
+    
 }
