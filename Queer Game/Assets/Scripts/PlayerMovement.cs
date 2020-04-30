@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (EventSystem.current.IsPointerOverGameObject(-1)) //If the mouse pointer is over a UI
                     return;
+                else if (hit.collider.gameObject.GetComponent<NpcBehaviour>() && hit.collider.gameObject.GetComponent<NpcBehaviour>().isFollower)
+                    return; //If the NPC that was clicked on is a follower, do not go to towards them. Other scripts will handle what happens
                 else
                 {
                     agent.SetDestination(hit.point);
