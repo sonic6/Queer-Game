@@ -1,8 +1,0 @@
-newmtl plastic_wood
-map_Kd D:/Mina Dokument/GitHub/Queer-Game/Queer Game/Assets/Materials/mall/plastic_wood/DefaultMaterial_Base_Color.png
-map_Pm D:/Mina Dokument/GitHub/Queer-Game/Queer Game/Assets/Materials/mall/plastic_wood/DefaultMaterial_Metallic.png
-bump D:/Mina Dokument/GitHub/Queer-Game/Queer Game/Assets/Materials/mall/plastic_wood/DefaultMaterial_Normal_DirectX.png
-disp D:/Mina Dokument/GitHub/Queer-Game/Queer Game/Assets/Materials/mall/plastic_wood/DefaultMaterial_Height.png
-Kd 1 1 1
-d 1
-
