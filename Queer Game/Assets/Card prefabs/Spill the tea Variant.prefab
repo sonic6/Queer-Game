@@ -25,6 +25,11 @@ PrefabInstance:
         and where to spill the tea and brings only good tea for the spilling, no
         nonsense, only the real tea supported by receipts. '
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: myTitle
+      value: Spill the tea
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name

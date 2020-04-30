@@ -21,6 +21,11 @@ PrefabInstance:
         speech to a halting stop. The last words she said at that moment were \u201CAnd
         I, OOP!!\u201D That phrase was written down in history. "
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: myTitle
+      value: And I oop!
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name

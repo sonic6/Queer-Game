@@ -23,6 +23,11 @@ PrefabInstance:
       value: 'Throwing shade is a form of martial art that queer angels such as Boyle
         excel at. N-Amys fear Boyle for how fierce they are at throwing shade. '
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: myTitle
+      value: Throwing shade
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name

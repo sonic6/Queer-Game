@@ -72,7 +72,7 @@ public class Verses : MonoBehaviour
         
 
         if (myNpc != null && myNpc.isFollower == false) //If this script has identified an NPC and it's not already a follower
-            myNpc.FollowPlayer();
+            myNpc.FollowPlayer(true);
     }
 
     void GroupNpcs()

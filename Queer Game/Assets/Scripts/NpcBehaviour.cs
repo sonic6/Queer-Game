@@ -31,7 +31,9 @@ public class NpcBehaviour : MonoBehaviour
     [HideInInspector] public int argumentUsed;
 
     [HideInInspector] public NavMeshAgent aiAgent;
-    
+
+    [Tooltip("The time in seconds it takes for this NPC to recruit another NPC")]
+    [SerializeField] float timeToGetOtherNpc;
 
 
     private void OnMouseDown()
@@ -40,7 +42,7 @@ public class NpcBehaviour : MonoBehaviour
         {
             print("off to work");
             RemoveExtraStrengthUi();
-            RecruitOthers();
+            StartCoroutine(RecruitOthers());
         }
     }
 
@@ -58,7 +60,7 @@ public class NpcBehaviour : MonoBehaviour
         }
     }
 
-    void RecruitOthers()
+    IEnumerator RecruitOthers()
     {
         
         List<NpcBehaviour> npcs = QueerFunctions.FindAvailableNpcs();
@@ -73,6 +75,24 @@ public class NpcBehaviour : MonoBehaviour
 
         looping = false;
         aiAgent.SetDestination(closest.transform.position);
+
+        while(aiAgent.velocity.magnitude > 0)
+        {
+            //AI keeps walking
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return new WaitForSeconds(timeToGetOtherNpc);
+        if (closest.GetComponent<NpcBehaviour>().isFollower == false && convertedByEnemy == false) //Good to check again in case the player or enemy got to the NPC first
+        {
+            closest.GetComponent<NpcBehaviour>().FollowPlayer(false); //False means this is not the player doing the recruiting, but will still recruit the NPC
+        }
+
+        if(Time.timeScale != 0) //If the game hasn't been won or lost yet
+        {
+            StartCoroutine(RecruitOthers());
+        }
+        yield return null;
     }
 
     IEnumerator FollowPlayerPosition() //Will work as an update to find the player's location but, can be stopped when needed
@@ -86,28 +106,30 @@ public class NpcBehaviour : MonoBehaviour
 
     }
 
-    public void FollowPlayer() //Gets called in "Verses" script
+    public void FollowPlayer(bool isPlayer) //Gets called in "Verses" script
     {
-        if (materialRequired <= materialUsed && argumentRequired <= argumentUsed)
+        if (materialRequired <= materialUsed && argumentRequired <= argumentUsed || isPlayer == false)
         {
             isFollower = true;
             FollowerCounter.AddFollower();
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;
             aiAgent.stoppingDistance = 2; //The distance this npc will keep from the player while following
-            
 
-            int nr = Verses.usedCards.Count;
-
-            for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
+            if(isPlayer) //If this NPC was recruited by the player and not by an NPC
             {
-                GameObject currentCard = Verses.usedCards[i];
-                BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
-                Destroy(currentCard);
+                int nr = Verses.usedCards.Count;
+
+                for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
+                {
+                    GameObject currentCard = Verses.usedCards[i];
+                    BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
+                    Destroy(currentCard);
+                }
+
+                Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
+
+                BookManager.manager.DrawNewCards();
             }
-
-            Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
-
-            BookManager.manager.DrawNewCards();
 
             Verses[] cardsInHand = BookManager.manager.pagesHolder.GetComponentsInChildren<Verses>();
             Verses.extraStrength++;

@@ -25,6 +25,11 @@ PrefabInstance:
         will fill them up with endless joy, energy to accomplish all that they dream
         of and of course a very strong caffeine buzz. "
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: myTitle
+      value: Iced Coffee
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name

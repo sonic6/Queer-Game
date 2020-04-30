@@ -20,6 +20,11 @@ PrefabInstance:
         Reading puts bad people right in their place and makes them realize just
         exactly what\u2019s wrong with them. "
       objectReference: {fileID: 0}
+    - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
+        type: 3}
+      propertyPath: myTitle
+      value: Reading
+      objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: m_Name
