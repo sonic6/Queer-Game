@@ -27,7 +27,72 @@ ModelImporter:
   - first:
       95: 9500000
     second: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map1
+    second: {fileID: 2100000, guid: 3da8ce71199067f43bbc3869bc0382d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map10
+    second: {fileID: 2100000, guid: f7858a2e86def35428fbe9669cc41995, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map11
+    second: {fileID: 2100000, guid: 3da8ce71199067f43bbc3869bc0382d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map12
+    second: {fileID: 2100000, guid: 6d760f5c5929a15478f2af52f77a027b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map13
+    second: {fileID: 2100000, guid: 3df360a70c1dab24da18032a27a298bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map2
+    second: {fileID: 2100000, guid: 480217b228eaab74faf96faac60f508c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map3
+    second: {fileID: 2100000, guid: ad8b2fb357a6beb428bcb175656f11bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map4
+    second: {fileID: 2100000, guid: cb4649f57a94e1f419d75429ba6d712b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map5
+    second: {fileID: 2100000, guid: b5a00416f9f0f80449e517ea1272f7f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map6
+    second: {fileID: 2100000, guid: 88ae806521224c443946ed9e21ab6fc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map7
+    second: {fileID: 2100000, guid: ac292935dacf5b64b8645aab4bfde84a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map8
+    second: {fileID: 2100000, guid: 99e0df8e1d570d649b2936869f66173f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: map9
+    second: {fileID: 2100000, guid: e479e9e2b754fb84ebcf4290edf3bada, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -68,7 +133,7 @@ ModelImporter:
     importCameras: 0
     importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
