@@ -1,11 +1,11 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
+﻿using UnityEngine;
+using TMPro;
 
 public class FollowerCounter : MonoBehaviour
 {
     private static int followers;
-    [SerializeField] Text followersUi;
-    private static Text followerCount;
+    [SerializeField] TMP_Text followersUi;
+    private static TMP_Text followerCount;
 
     public static int npcCount;
     public static int pollutedCount;

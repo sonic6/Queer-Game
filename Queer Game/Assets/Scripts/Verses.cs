@@ -41,7 +41,17 @@ public class Verses : MonoBehaviour
     private void Start()
     {
         GetImageComponentFromChildren();
-        
+        CardColor();
+    }
+
+    void CardColor()
+    {
+        if (KindOfCard == CardKind.Celebrity)
+            GetComponent<Image>().color = BookManager.manager.celebrityColor;
+        else if (KindOfCard == CardKind.Culture)
+            GetComponent<Image>().color = BookManager.manager.cultureColor;
+        else if (KindOfCard == CardKind.Shade)
+            GetComponent<Image>().color = BookManager.manager.shadeColor;
     }
 
     void GetImageComponentFromChildren()
@@ -66,9 +76,9 @@ public class Verses : MonoBehaviour
     void IndividualNpcs()
     {
         if (myNpc != null && KindOfCard == CardKind.Culture)
-            myNpc.argumentUsed += strength;
+            myNpc.cultureUsed += strength;
         else if (myNpc != null && KindOfCard == CardKind.Celebrity)
-            myNpc.materialUsed += strength;
+            myNpc.celebrityUsed += strength;
         
 
         if (myNpc != null && myNpc.isFollower == false) //If this script has identified an NPC and it's not already a follower
