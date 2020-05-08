@@ -1,19 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using HutongGames.PlayMaker;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Camera myCam;
     public NavMeshAgent agent;
     [SerializeField] Vector3 cameraPosition;
-    
+
+
+    private void Start()
+    {
+        StartCoroutine(CameraUpdate());
+    }
 
     // Update is called once per frame
     void Update()
     {
-        CameraFollow();
+        //CameraFollow();
 
         if(Input.GetMouseButtonDown(0))
         {
@@ -33,6 +38,17 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator CameraUpdate()
+    {
+        while (Time.timeScale > 0)
+        {
+            CameraFollow();
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return null;
     }
 
     void CameraFollow()

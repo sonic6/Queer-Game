@@ -20,8 +20,8 @@ public class GroupTool : MonoBehaviour
 
         foreach(NpcBehaviour npc in npcs)
         {
-            argumentsRequired += npc.argumentRequired;
-            materialsRequired += npc.materialRequired;
+            argumentsRequired += npc.cultureRequired;
+            materialsRequired += npc.celebrityRequired;
             npc.GetComponentInChildren<SphereCollider>().enabled = false; //Disable the individual sphere colliders for the members in the group
         }
         argumentsRequired = argumentsRequired - (npcs.Count * 2);

@@ -23,6 +23,8 @@ MonoBehaviour:
   argumentUsed: 0
   aiAgent: {fileID: 0}
   timeToGetOtherNpc: 10
+  pointsCanvas: {fileID: 7827355029748422564, guid: 9c7d16406e8029541982f0dde0083fd3,
+    type: 3}
 --- !u!1001 &8261253681384689281
 PrefabInstance:
   m_ObjectHideFlags: 0

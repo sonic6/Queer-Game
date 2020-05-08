@@ -1,12 +1,12 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
+﻿using UnityEngine;
+using TMPro;
 
 public class LevelTime : MonoBehaviour
 {
     [SerializeField] float myMinutes;
     [SerializeField] float totalSeconds;
     
-    [SerializeField] Text timeText;
+    [SerializeField] TMP_Text timeText;
 
     // Start is called before the first frame update
     void Start()

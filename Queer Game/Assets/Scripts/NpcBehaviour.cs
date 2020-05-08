@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using TMPro;
 using QueerGame;
 using System.Collections.Generic;
 using System.Collections;
+using HutongGames.PlayMaker;
 
 public class NpcBehaviour : MonoBehaviour
 {
     /////////Several other scripts inherit variables from this script////////
     
-    [Tooltip("The walking speed of this gameobjects ai agent")]
+    [UnityEngine.Tooltip("The walking speed of this gameobjects ai agent")]
     public float walkingSpeed;
 
     private bool looping = true; //Used to start looping the FollowPlayerPosition coroutine
@@ -20,21 +23,47 @@ public class NpcBehaviour : MonoBehaviour
 
     [HideInInspector] public bool isFollower = false; //When the value of this bool is true, it means this NPC is a follower
 
-    [Tooltip("This is how much material points this npc requires")]
-    public int materialRequired;
-    [Tooltip("This is how much argument points this npc requires")]
-    public int argumentRequired;
+    [UnityEngine.Tooltip("This is how much material points this npc requires")]
+    public int celebrityRequired;
+    [UnityEngine.Tooltip("This is how much argument points this npc requires")]
+    public int cultureRequired;
 
     //This is how much material points the player has used for this npc
-    [HideInInspector] public int materialUsed;
+    [HideInInspector] public int celebrityUsed;
     //This is how much argument points the player has used for this npc
-    [HideInInspector] public int argumentUsed;
+    [HideInInspector] public int cultureUsed;
 
     [HideInInspector] public NavMeshAgent aiAgent;
 
-    [Tooltip("The time in seconds it takes for this NPC to recruit another NPC")]
+    [UnityEngine.Tooltip("The time in seconds it takes for this NPC to recruit another NPC")]
     [SerializeField] float timeToGetOtherNpc;
 
+    [UnityEngine.Tooltip("Insert a points canvas prefab here")]
+    [SerializeField] GameObject pointsCanvas;
+
+    private Canvas drainCanvas;
+    
+
+    private void Start()
+    {
+        drainCanvas = GetComponentInChildren<Canvas>();
+        drainCanvas.gameObject.SetActive(false);
+
+        GameObject points = Instantiate(pointsCanvas, transform);
+        points.GetComponent<Canvas>().worldCamera = Camera.main;
+
+        int[] requirements = { celebrityRequired, cultureRequired };
+        List<Transform> childs = new List<Transform>(points.GetComponentsInChildren<Transform>());
+        childs.Remove(childs[0]);
+
+        for (int i = 0; i < 2; i++)
+        {
+            var txt = childs[i].GetComponent<TMP_Text>();
+            txt.SetText(requirements[i].ToString());
+            txt.color = BookManager.manager.celebrityColor;
+            if (i > 0) txt.color = BookManager.manager.cultureColor;
+        }
+    }
 
     private void OnMouseDown()
     {
@@ -108,7 +137,7 @@ public class NpcBehaviour : MonoBehaviour
 
     public void FollowPlayer(bool isPlayer) //Gets called in "Verses" script
     {
-        if (materialRequired <= materialUsed && argumentRequired <= argumentUsed || isPlayer == false)
+        if (celebrityRequired <= celebrityUsed && cultureRequired <= cultureUsed || isPlayer == false)
         {
             isFollower = true;
             FollowerCounter.AddFollower();
@@ -136,6 +165,12 @@ public class NpcBehaviour : MonoBehaviour
             foreach (Verses card in cardsInHand)
             {
                 card.AddExtraStrengthUi();
+            }
+
+            if (SceneManager.GetActiveScene().name.Contains("Tutorial"))
+            {
+                print("works");
+                BookManager.manager.MoveNext(BookManager.manager.tutorialFsm);
             }
 
             StartCoroutine(FollowPlayerPosition());

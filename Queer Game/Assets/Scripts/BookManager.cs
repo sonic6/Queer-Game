@@ -5,6 +5,13 @@ using System.Collections.Generic;
 
 public class BookManager : MonoBehaviour
 {
+    public Color celebrityColor;
+    public Color cultureColor;
+    public Color shadeColor;
+
+    [UnityEngine.Tooltip("The tutorial FSM if this is a tutorial level")]
+    public PlayMakerFSM tutorialFsm;
+
     public static BookManager manager;
 
     public static MemeExplainer infoImage; //Used by Verses script
@@ -67,6 +74,15 @@ public class BookManager : MonoBehaviour
             page.FsmVariables.GetFsmGameObject("book position").CastVariable = new FsmGameObject(bookUpPos);
             page.FsmVariables.GetFsmGameObject("book").CastVariable = new FsmGameObject(gameObject);
         }
+    }
+
+    /// <summary>
+    /// Used by Tutorial FSM to move the next tutorial objective
+    /// </summary>
+    /// <param name="fsm"></param>
+    public void MoveNext(PlayMakerFSM fsm)
+    {
+        fsm.SendEvent("Next");
     }
 
     //Used by this gameobject to reactivate pages/cards gameobjects

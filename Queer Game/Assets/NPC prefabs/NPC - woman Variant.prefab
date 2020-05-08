@@ -42,6 +42,8 @@ MonoBehaviour:
   argumentUsed: 0
   aiAgent: {fileID: 0}
   timeToGetOtherNpc: 7
+  pointsCanvas: {fileID: 7827355029748422564, guid: 9c7d16406e8029541982f0dde0083fd3,
+    type: 3}
   allowedDistance: 5
   runningSpeed: 2
 --- !u!1001 &7407550850130326550
