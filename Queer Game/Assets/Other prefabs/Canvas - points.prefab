@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8960158092619068071}
   m_Layer: 0
   m_Name: Text (TMP) argument
-  m_TagString: Untagged
+  m_TagString: culture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 7827355029220157264}
   m_Layer: 0
   m_Name: Text (TMP) material
-  m_TagString: Untagged
+  m_TagString: celeb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

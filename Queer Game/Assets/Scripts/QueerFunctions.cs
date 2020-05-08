@@ -6,6 +6,12 @@ namespace QueerGame
 {
     public class QueerFunctions : MonoBehaviour
     {
+        /// <summary>
+        /// Finds the distance in 3D space between two Vector3 variables
+        /// </summary>
+        /// <param name="position1"></param>
+        /// <param name="position2"></param>
+        /// <returns></returns>
         public static float FindDistanceBetweenVectors(Vector3 position1, Vector3 position2)
         {
             float x1 = position1.x;

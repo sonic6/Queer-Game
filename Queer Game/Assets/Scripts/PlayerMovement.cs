@@ -8,18 +8,20 @@ public class PlayerMovement : MonoBehaviour
     public Camera myCam;
     public NavMeshAgent agent;
     [SerializeField] Vector3 cameraPosition;
+    bool cameraUpdate = true;
+
+    float ogSpeed;
 
 
     private void Start()
     {
         StartCoroutine(CameraUpdate());
+        ogSpeed = agent.speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //CameraFollow();
-
         if(Input.GetMouseButtonDown(0))
         {
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
@@ -40,21 +42,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Used in tutorial to stop camera from following player
+    public void FlipCamera()
+    {
+        cameraUpdate = !cameraUpdate;
+    }
+
     IEnumerator CameraUpdate()
     {
-        while (Time.timeScale > 0)
+        while (cameraUpdate)
         {
-            CameraFollow();
+            myCam.transform.position = new Vector3(transform.position.x + cameraPosition.x, cameraPosition.y, transform.position.z + cameraPosition.z);
             yield return new WaitForEndOfFrame();
-        }
-
-        yield return null;
+        } 
+        yield break;
     }
-
-    void CameraFollow()
-    {
-        myCam.transform.position = new Vector3(transform.position.x + cameraPosition.x, cameraPosition.y, transform.position.z + cameraPosition.z);
-    }
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -91,5 +94,14 @@ public class PlayerMovement : MonoBehaviour
                 card.SetActive(true);
             }
         }
+    }
+
+    //Helps stop player in tutorial
+    public void MovementSpeed(bool move)
+    {
+        if (!move)
+            agent.speed = 0;
+        else
+            agent.speed = ogSpeed;
     }
 }

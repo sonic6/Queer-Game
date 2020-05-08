@@ -2,6 +2,7 @@
 using UnityEngine.AI;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class Verses : MonoBehaviour
 {
@@ -71,14 +72,44 @@ public class Verses : MonoBehaviour
         Enemy();
         GroupNpcs();
         
+        
     }
 
     void IndividualNpcs()
     {
+        TMP_Text celeb = null;
+        TMP_Text culture = null;
+
         if (myNpc != null && KindOfCard == CardKind.Culture)
+        {
             myNpc.cultureUsed += strength;
+            foreach(TMP_Text text in myNpc.GetComponentsInChildren<TMP_Text>())
+            {
+                if (text.gameObject.tag == "culture")
+                    culture = text;
+            }
+
+            int value = int.Parse(culture.text);
+            if (value > myNpc.cultureUsed)
+                culture.text = (value - myNpc.cultureUsed).ToString();
+            else
+                culture.text = "0";
+        }
         else if (myNpc != null && KindOfCard == CardKind.Celebrity)
+        {
             myNpc.celebrityUsed += strength;
+            foreach (TMP_Text text in myNpc.GetComponentsInChildren<TMP_Text>())
+            {
+                if (text.gameObject.tag == "celeb")
+                    celeb = text;
+            }
+
+            int value = int.Parse(celeb.text);
+            if (value > myNpc.celebrityUsed)
+                celeb.text = (value - myNpc.celebrityUsed).ToString();
+            else
+                celeb.text = "0";
+        }
         
 
         if (myNpc != null && myNpc.isFollower == false) //If this script has identified an NPC and it's not already a follower

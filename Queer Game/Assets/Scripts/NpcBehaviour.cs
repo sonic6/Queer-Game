@@ -41,7 +41,7 @@ public class NpcBehaviour : MonoBehaviour
     [UnityEngine.Tooltip("Insert a points canvas prefab here")]
     [SerializeField] GameObject pointsCanvas;
 
-    private Canvas drainCanvas;
+    [HideInInspector] public Canvas drainCanvas;
     
 
     private void Start()
@@ -69,7 +69,6 @@ public class NpcBehaviour : MonoBehaviour
     {
         if (isFollower && Verses.extraStrength != 0)
         {
-            print("off to work");
             RemoveExtraStrengthUi();
             StartCoroutine(RecruitOthers());
         }
@@ -169,7 +168,6 @@ public class NpcBehaviour : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name.Contains("Tutorial"))
             {
-                print("works");
                 BookManager.manager.MoveNext(BookManager.manager.tutorialFsm);
             }
 

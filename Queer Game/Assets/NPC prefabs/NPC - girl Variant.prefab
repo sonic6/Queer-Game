@@ -17,14 +17,15 @@ MonoBehaviour:
   player: {fileID: 0}
   convertedByEnemy: 0
   isFollower: 0
-  materialRequired: 5
-  argumentRequired: 6
-  materialUsed: 0
-  argumentUsed: 0
+  celebrityRequired: 6
+  cultureRequired: 10
+  celebrityUsed: 0
+  cultureUsed: 0
   aiAgent: {fileID: 0}
   timeToGetOtherNpc: 5
   pointsCanvas: {fileID: 7827355029748422564, guid: 9c7d16406e8029541982f0dde0083fd3,
     type: 3}
+  drainCanvas: {fileID: 0}
   allowedDistance: 5
   runningSpeed: 3
 --- !u!1001 &6642477197053097800

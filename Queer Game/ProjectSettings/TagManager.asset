@@ -6,6 +6,9 @@ TagManager:
   tags:
   - myImage
   - enemy
+  - tutorial handler
+  - culture
+  - celeb
   layers:
   - Default
   - TransparentFX

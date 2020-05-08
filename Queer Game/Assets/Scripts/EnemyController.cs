@@ -17,10 +17,13 @@ public class EnemyController : MonoBehaviour
 
     private Animator myAnimator;
     bool foundGroup = false;
+
+    float ogSpeed; //The speed of this ai agent
     
     void Start()
     {
         me = GetComponent<NavMeshAgent>();
+        ogSpeed = me.speed;
         myAnimator = GetComponentInChildren<Animator>();
         FindNpcs();
         //EnemyDistanceTrigger.open = true;
@@ -79,7 +82,9 @@ public class EnemyController : MonoBehaviour
     {
         if (other.GetComponent<TalkTrigger>() && other.transform.parent.gameObject == currentTarget.gameObject)
         {
-            subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+            Canvas drainThis = currentTarget.GetComponent<NpcBehaviour>().drainCanvas;
+            drainThis.gameObject.SetActive(true);
+            subtraction = drainThis.transform.localScale.x / timeToPollute;
             StartCoroutine(PolluteNpc(currentTarget));
         }
 
@@ -91,7 +96,9 @@ public class EnemyController : MonoBehaviour
             {
                 if (npc.gameObject == currentTarget)
                 {
-                    subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+                    Canvas drainThis = currentTarget.GetComponent<NpcBehaviour>().drainCanvas;
+                    drainThis.gameObject.SetActive(true);
+                    subtraction = drainThis.transform.localScale.x / timeToPollute;
                     StartCoroutine(PolluteGroup());
                 }
             }
@@ -158,5 +165,14 @@ public class EnemyController : MonoBehaviour
     private void PolluteNextInGroup()
     {
         subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
+    }
+
+    //Helps stop N-Amy in tutorial
+    public void MovementSpeed(bool move)
+    {
+        if (!move)
+            me.speed = 0;
+        else
+            me.speed = ogSpeed;
     }
 }

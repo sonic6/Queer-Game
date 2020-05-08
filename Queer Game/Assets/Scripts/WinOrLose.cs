@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinOrLose : MonoBehaviour
 {
@@ -23,5 +24,10 @@ public class WinOrLose : MonoBehaviour
         Time.timeScale = 0;
         myUiScreen.GetComponentInChildren<Text>().text = "You Win!";
         myUiScreen.SetActive(true);
+    }
+
+    public void ReplayLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: strength
-      value: 12
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
         type: 3}

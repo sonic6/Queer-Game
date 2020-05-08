@@ -21,6 +21,7 @@ public class EnemyDistanceTrigger : MonoBehaviour
             GetComponent<SphereCollider>().radius++;
             yield return null;
         }
+        yield break;
     }
 
     private void OnTriggerEnter(Collider other)

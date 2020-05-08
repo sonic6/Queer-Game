@@ -26,8 +26,12 @@ public class BookManager : MonoBehaviour
     PlayMakerFSM[] pages; //The pages where the "Memes" are
     Button[] pageButtons; //The buttons on each page in pages
 
-    [UnityEngine.Tooltip("This represents the card deck and should be filled up manually with card prefabs")]
-    [SerializeField] GameObject[] cards; 
+    [UnityEngine.Tooltip("This represents the game cards and should be filled up manually with card prefabs")]
+    [SerializeField] GameObject[] cards;
+
+    //The cards that the deck in this level holds
+    List<GameObject> cardDeck = new List<GameObject>();
+
     [UnityEngine.Tooltip("Fill this up with the gameobjects that represent where the cards will show up on screen")]
     [SerializeField] Transform[] cardPositions;
 
@@ -36,7 +40,38 @@ public class BookManager : MonoBehaviour
     private void Awake()
     {
         manager = this;
+        FillDeck();
         DrawNewCards();
+    }
+
+    //Fills the card deck with 8 celebrity cards, 8 culture cards and 4 shade cards
+    void FillDeck()
+    {
+        int celeb = 0;
+        int culture = 0;
+        int shade = 0;
+
+        while(cardDeck.Count < 20)
+        {
+            var card = cards[Random.Range(0, cards.Length)];
+            var cardKind = card.GetComponent<Verses>().KindOfCard;
+            if (celeb < 8 && cardKind == Verses.CardKind.Celebrity)
+            {
+                cardDeck.Add(card);
+                celeb++;
+            }
+            if (culture < 8 && cardKind == Verses.CardKind.Culture)
+            {
+                cardDeck.Add(card);
+                culture++;
+            }
+            if (shade < 4 && cardKind == Verses.CardKind.Shade)
+            {
+                cardDeck.Add(card);
+                shade++;
+            }
+
+        }
     }
 
     // Start is called before the first frame update
@@ -57,7 +92,8 @@ public class BookManager : MonoBehaviour
         int toDraw = cardPositions.Length - handCards;
         for (int i = 0; i < toDraw; i++)
         {
-            GameObject currentCard = Instantiate(cards[Random.Range(0, cards.Length)], pagesHolder.transform);
+            GameObject currentCard = Instantiate(cardDeck[Random.Range(0, cardDeck.Count)], pagesHolder.transform);
+            cardDeck.Remove(currentCard); //Removes the card from the deck so it doesn't spawn again
             if (toDraw == cardPositions.Length)
                 currentCard.transform.position = cardPositions[i].position;
             else
