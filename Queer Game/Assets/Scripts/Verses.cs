@@ -29,7 +29,7 @@ public class Verses : MonoBehaviour
 
     [HideInInspector] public GameObject myPosition;
 
-    public static List<GameObject> usedCards = new List<GameObject>(); //This list is to identify the cards that have just been used and aren't deleted yet
+    /*public static List<GameObject> usedCards = new List<GameObject>();*/ //This list is to identify the cards that have just been used and aren't deleted yet
 
     [TextArea(5,20)]
     [SerializeField] private string description;
@@ -67,11 +67,12 @@ public class Verses : MonoBehaviour
 
     public void UseButton()
     {
-        DisableCard();
         IndividualNpcs();
         Enemy();
         GroupNpcs();
-        
+
+
+        DestroyCard();
         
     }
 
@@ -136,10 +137,15 @@ public class Verses : MonoBehaviour
         }
     }
 
-    void DisableCard()
+    void DestroyCard()
     {
-        usedCards.Add(gameObject);
-        gameObject.SetActive(false);
+        if (QueerGame.QueerFunctions.MoveTowardsIsRunning == false) //This bool must be checked so that no cards can be used while they are moving on screen which would cause errors
+        {
+            myPosition.GetComponent<CardPosition>().myCard = null; //This card breaks its connection with the position it was in
+                                                                   //BookManager.manager.cardDeck.Remove(gameObject);
+            InfoDealer.cardsInHand.Remove(gameObject);
+            Destroy(gameObject);
+        }
     }
 
     public void UseInfoButton()
@@ -160,4 +166,9 @@ public class Verses : MonoBehaviour
     }
 
     
+}
+
+public class CardPosition : MonoBehaviour
+{
+    public GameObject myCard;
 }

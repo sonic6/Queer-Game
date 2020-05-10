@@ -81,18 +81,18 @@ public class PlayerMovement : MonoBehaviour
         if (other.GetComponent<TalkTrigger>())
         {
             Verses.myNpc = null;
-            foreach(GameObject card in Verses.usedCards) //If the player leaves before recruiting a follower. reactivate the used cards
-            {
-                card.SetActive(true);
-            }
+            //foreach(GameObject card in Verses.usedCards) //If the player leaves before recruiting a follower. reactivate the used cards
+            //{
+            //    card.SetActive(true);
+            //}
         }
         if (other.GetComponent<GroupTool>())
         {
             Verses.myGroup = null;
-            foreach (GameObject card in Verses.usedCards) //If the player leaves before recruiting a follower. reactivate the used cards
-            {
-                card.SetActive(true);
-            }
+            //foreach (GameObject card in Verses.usedCards) //If the player leaves before recruiting a follower. reactivate the used cards
+            //{
+            //    card.SetActive(true);
+            //}
         }
     }
 

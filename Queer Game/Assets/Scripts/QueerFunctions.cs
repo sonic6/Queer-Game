@@ -6,6 +6,9 @@ namespace QueerGame
 {
     public class QueerFunctions : MonoBehaviour
     {
+        public static bool MoveTowardsIsRunning = false;
+
+
         /// <summary>
         /// Finds the distance in 3D space between two Vector3 variables
         /// </summary>
@@ -44,5 +47,56 @@ namespace QueerGame
             return NPCs;
 
         }
+
+        /// <summary>
+        /// Converts given list of gameObjects into instantiated list of gameObjects
+        /// </summary>
+        /// <param name="sourceList"></param>
+        /// <returns></returns>
+        public static List<GameObject> ConvertToSceneRefrence(List<GameObject> sourceList)
+        {
+            for (int i = 0; i < sourceList.Count; i++) //It's important that this loop exist to convert the refrences in 
+            {
+                GameObject newCard = Instantiate(sourceList[i]);
+                sourceList[i] = newCard;
+                sourceList[i].SetActive(false);
+            }
+            return sourceList;
+        }
+
+        public static IEnumerator OpenCloseBook(List<GameObject> cardsInHand, string activeState = "default")
+        {
+            if (MoveTowardsIsRunning == false)
+            {
+                MoveTowardsIsRunning = true;
+                foreach(GameObject card in cardsInHand)
+                {
+                    if (activeState == "yes")
+                    {
+                        card.gameObject.SetActive(true);
+
+
+                        while (Vector3.Distance(card.transform.position, card.GetComponent<Verses>().myPosition.transform.position) > 1)
+                        {
+                            card.transform.position = Vector3.MoveTowards(card.transform.position, card.GetComponent<Verses>().myPosition.transform.position, 70);
+                            yield return new WaitForEndOfFrame();
+                        }
+                    }
+                    if (activeState == "no")
+                    {
+                        
+                        while (Vector3.Distance(card.transform.position, BookManager.manager.transform.position) > 1)
+                        {
+                            card.transform.position = Vector3.MoveTowards(card.transform.position, BookManager.manager.transform.position, 70);
+                            yield return new WaitForEndOfFrame();
+                        }
+                        card.gameObject.SetActive(false);
+                    }
+                }
+                MoveTowardsIsRunning = false;
+            }
+            yield break;
+        }
+
     }
 }

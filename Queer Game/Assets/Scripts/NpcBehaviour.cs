@@ -134,6 +134,7 @@ public class NpcBehaviour : MonoBehaviour
 
     }
 
+    
     public void FollowPlayer(bool isPlayer) //Gets called in "Verses" script
     {
         if (celebrityRequired <= celebrityUsed && cultureRequired <= cultureUsed || isPlayer == false)
@@ -143,21 +144,21 @@ public class NpcBehaviour : MonoBehaviour
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;
             aiAgent.stoppingDistance = 2; //The distance this npc will keep from the player while following
 
-            if(isPlayer) //If this NPC was recruited by the player and not by an NPC
-            {
-                int nr = Verses.usedCards.Count;
+            //if(isPlayer) //If this NPC was recruited by the player and not by an NPC
+            //{
+            //    //int nr = Verses.usedCards.Count;
 
-                for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
-                {
-                    GameObject currentCard = Verses.usedCards[i];
-                    BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
-                    Destroy(currentCard);
-                }
+            //    //for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
+            //    //{
+            //    //    GameObject currentCard = Verses.usedCards[i];
+            //    //    BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
+            //    //    Destroy(currentCard);
+            //    //}
 
-                Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
+            //    //Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
 
-                BookManager.manager.DrawNewCards();
-            }
+            //    BookManager.manager.DrawNewCards();
+            //}
 
             Verses[] cardsInHand = BookManager.manager.pagesHolder.GetComponentsInChildren<Verses>();
             Verses.extraStrength++;

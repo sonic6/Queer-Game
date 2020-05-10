@@ -42,16 +42,16 @@ public class GroupTool : MonoBehaviour
                 Destroy(gameObject); //Destroys the gameobject attached to this GroupTool
             }
 
-            int nr = Verses.usedCards.Count;
+            //int nr = Verses.usedCards.Count;
 
-            for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
-            {
-                GameObject currentCard = Verses.usedCards[i];
-                BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
-                Destroy(currentCard);
-            }
+            //for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
+            //{
+            //    GameObject currentCard = Verses.usedCards[i];
+            //    BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
+            //    Destroy(currentCard);
+            //}
 
-            Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
+            //Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
 
             BookManager.manager.DrawNewCards();
 

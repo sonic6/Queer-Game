@@ -2,6 +2,8 @@
 using HutongGames.PlayMaker;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
+using QueerGame;
 
 public class BookManager : MonoBehaviour
 {
@@ -30,15 +32,22 @@ public class BookManager : MonoBehaviour
     [SerializeField] GameObject[] cards;
 
     //The cards that the deck in this level holds
-    List<GameObject> cardDeck = new List<GameObject>();
+    public List<GameObject> cardDeck = new List<GameObject>();
 
     [UnityEngine.Tooltip("Fill this up with the gameobjects that represent where the cards will show up on screen")]
     [SerializeField] Transform[] cardPositions;
 
-    public List<Transform> oldPositions; //This array contains the positioons of cards that have been Destroyed (used)
+    bool stopDrawingCards = false;
+
+    /*public List<Transform> oldPositions;*/ //This array contains the positioons of cards that have been Destroyed (used)
 
     private void Awake()
     {
+        foreach(Transform pos in cardPositions)
+        {
+            pos.gameObject.AddComponent<CardPosition>();
+        }
+
         manager = this;
         FillDeck();
         DrawNewCards();
@@ -51,7 +60,7 @@ public class BookManager : MonoBehaviour
         int culture = 0;
         int shade = 0;
 
-        while(cardDeck.Count < 20)
+        do
         {
             var card = cards[Random.Range(0, cards.Length)];
             var cardKind = card.GetComponent<Verses>().KindOfCard;
@@ -71,7 +80,15 @@ public class BookManager : MonoBehaviour
                 shade++;
             }
 
-        }
+
+
+            //if (cardDeck.Count == 20)
+            //    break;
+        } while (cardDeck.Count < 20);
+
+        QueerFunctions.ConvertToSceneRefrence(cardDeck);
+
+
     }
 
     // Start is called before the first frame update
@@ -82,35 +99,73 @@ public class BookManager : MonoBehaviour
 
     public void DrawNewCards()
     {
-        BoxCollider2D[] inHand = null; //Using BoxCollider2D only because it's the only component that isn't repreated more than once in the card prefab and it's children. Otherwise, that would cause problems
-        int handCards = 0;
-        if (pagesHolder.transform.childCount > 0)
+        if (stopDrawingCards == false)
         {
-            inHand = pagesHolder.GetComponentsInChildren<BoxCollider2D>();
-            handCards = inHand.Length;
-        }
-        int toDraw = cardPositions.Length - handCards;
-        for (int i = 0; i < toDraw; i++)
-        {
-            GameObject currentCard = Instantiate(cardDeck[Random.Range(0, cardDeck.Count)], pagesHolder.transform);
-            cardDeck.Remove(currentCard); //Removes the card from the deck so it doesn't spawn again
-            if (toDraw == cardPositions.Length)
-                currentCard.transform.position = cardPositions[i].position;
-            else
-                currentCard.transform.position = oldPositions[i].transform.position;
-            currentCard.GetComponent<Verses>().myPosition = cardPositions[i].gameObject;
-        }
+            int handCards = 0;
 
-        //The following sets up the newly generated cards to work with their FSM components
-        pages = pagesHolder.GetComponentsInChildren<PlayMakerFSM>();
-        foreach (PlayMakerFSM page in pages)
-        {
-            page.SendEvent("myStart");
-            page.FsmVariables.GetFsmGameObject("mySelf").CastVariable = new FsmGameObject(page.gameObject);
-            page.FsmVariables.GetFsmGameObject("book position").CastVariable = new FsmGameObject(bookUpPos);
-            page.FsmVariables.GetFsmGameObject("book").CastVariable = new FsmGameObject(gameObject);
+            foreach (Transform pos in cardPositions)
+            {
+                if (pos.GetComponent<CardPosition>().myCard != null)
+                    handCards++;
+            }
+
+
+            int toDraw = cardPositions.Length - handCards;
+            for (int i = 0; i < toDraw; i++)
+            {
+                GameObject currentCard = cardDeck[Random.Range(0, cardDeck.Count)];
+                currentCard.transform.SetParent(pagesHolder.transform);
+                InfoDealer.cardsInHand.Add(currentCard);
+                cardDeck.Remove(currentCard); //Removes the card from the deck so it doesn't spawn again
+                
+                currentCard.transform.position = transform.position;
+                
+                foreach (Transform pos in cardPositions) //Find the first empty position and take it
+                {
+                    if (pos.GetComponent<CardPosition>().myCard == null)
+                    {
+                        pos.GetComponent<CardPosition>().myCard = currentCard;
+                        break;
+                    }
+                }
+                foreach(Transform pos in cardPositions)
+                {
+                    if (pos.GetComponent<CardPosition>().myCard == currentCard)
+                    {
+                        currentCard.GetComponent<Verses>().myPosition = pos.gameObject;
+                        break;
+                    }
+                }
+
+                //currentCard.GetComponent<Verses>().myPosition = cardPositions[i].gameObject;
+
+
+                currentCard.gameObject.SetActive(false);
+                if (cardDeck.Count == 0)
+                    stopDrawingCards = true;
+            }
         }
     }
+
+    private void ClickedBook()
+    {
+        DrawNewCards();
+        if (InfoDealer.cardsInHand[0])
+        {
+            GameObject card = InfoDealer.cardsInHand[0]; //No need to check all activestates of cards in hand, just one is enough for this
+
+            if (card.activeSelf == false)
+            {
+                StartCoroutine(QueerFunctions.OpenCloseBook(InfoDealer.cardsInHand, "yes"));
+            }
+            else if (card.activeSelf == true)
+            {
+                StartCoroutine(QueerFunctions.OpenCloseBook(InfoDealer.cardsInHand, "no"));
+            }
+        }
+    }
+
+    
 
     /// <summary>
     /// Used by Tutorial FSM to move the next tutorial objective
