@@ -42,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    
+
     //Used in tutorial to stop camera from following player
     public void FlipCamera()
     {
