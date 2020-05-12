@@ -19,11 +19,15 @@ public class PlayerMovement : MonoBehaviour
         ogSpeed = agent.speed;
     }
 
+    float clickTime = 0;
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        MouseDragMovement();
+
+        if (Input.GetMouseButtonDown(0))
         {
+            clickTime = Time.realtimeSinceStartup;
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             
@@ -39,10 +43,32 @@ public class PlayerMovement : MonoBehaviour
                     agent.SetDestination(hit.point);
                 }
             }
+            
         }
+
+        
     }
 
-    
+    private void MouseDragMovement()
+    {
+        
+        Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit);
+
+        
+
+        if (Input.GetMouseButton(0))
+        {
+            agent.ResetPath();
+            transform.LookAt(hit.point, Vector3.up);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            //Vector3 playerPosToScrn = myCam.WorldToScreenPoint(transform.position);
+            //transform.eulerAngles = new Vector3(0,Vector2.SignedAngle(playerPosToScrn, Input.mousePosition),0);
+            //print(Vector2.Angle(playerPosToScrn, Input.mousePosition));
+            agent.Move(transform.forward * Time.deltaTime * agent.speed);
+        }
+    }
 
     //Used in tutorial to stop camera from following player
     public void FlipCamera()
@@ -54,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     {
         while (cameraUpdate)
         {
-            myCam.transform.position = new Vector3(transform.position.x + cameraPosition.x, cameraPosition.y, transform.position.z + cameraPosition.z);
+            myCam.transform.position = new Vector3(transform.position.x + cameraPosition.x, transform.position.y + cameraPosition.y, transform.position.z + cameraPosition.z);
             yield return new WaitForEndOfFrame();
         } 
         yield break;
