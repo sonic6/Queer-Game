@@ -164,7 +164,9 @@ public class NpcBehaviour : MonoBehaviour
             Verses.extraStrength++;
             foreach (Verses card in cardsInHand)
             {
-                card.AddExtraStrengthUi();
+                //StartCoroutine(QueerFunctions.CallMethodInDisabledObject(card, "AddExtraStrengthUi")/*  card.AddExtraStrengthUi()*/);
+                card.strength += Verses.extraStrength;
+                card.myExtraPoints.text = "+" + Verses.extraStrength.ToString();
             }
 
             if (SceneManager.GetActiveScene().name.Contains("Tutorial"))

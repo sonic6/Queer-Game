@@ -146,6 +146,7 @@ public class BookManager : MonoBehaviour
             }
         }
     }
+    
 
     private void ClickedBook()
     {

@@ -2,6 +2,7 @@
 using UnityEngine.AI;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 
 public class Verses : MonoBehaviour
@@ -22,7 +23,7 @@ public class Verses : MonoBehaviour
     public Text myExtraPoints;
 
     public int strength; //The main strength of this card
-    [HideInInspector] public static int extraStrength = 0; //The strength that's added per follower. Equals 0 on start
+    public static int extraStrength = 0; //The strength that's added per follower. Equals 0 on start
     public static NpcBehaviour myNpc;
     public static GroupTool myGroup;
     public static EnemyController myEnemy;
@@ -157,10 +158,11 @@ public class Verses : MonoBehaviour
     }
 
     /// <summary>
-    /// This function adds extra strength points to the play cards. "Number" is the amount of points to be added
+    /// This function adds extra strength points to the play cards. 
     /// </summary>
     public void AddExtraStrengthUi()
     {
+        
         myExtraPoints.text = "+" + extraStrength.ToString();
         strength = strength + extraStrength;
     }

@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menu placeholder.unity
+    guid: 7c2464802c90e644381416bdbd911208
+  - enabled: 1
     path: Assets/Scenes/Park Tutorial Level.unity
     guid: 6033c7e9a5b101347aeb0f3339806500
   - enabled: 1
-    path: Assets/Scenes/Park Scene.unity
-    guid: 246502ae217263f47a4a21429164e1ab
+    path: Assets/Scenes/Suburbs Scene - Playable.unity
+    guid: c7f691051589461419383b3f4c9d316d
+  - enabled: 1
+    path: Assets/Scenes/Mall - Playable.unity
+    guid: fdf528329d2c73545b8086188ff0fe3b
   m_configObjects: {}

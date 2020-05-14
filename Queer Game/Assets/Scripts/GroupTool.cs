@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using QueerGame;
 
 public class GroupTool : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GroupTool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.layer = 2; //Ignore raycast layer
+        GetComponent<Collider>().isTrigger = true;
         gameObject.AddComponent<Rigidbody>();
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Collider>().isTrigger = true;
@@ -59,7 +62,9 @@ public class GroupTool : MonoBehaviour
             Verses.extraStrength += npcs.Count;
             foreach (Verses card in cardsInHand)
             {
-                card.AddExtraStrengthUi();
+                //StartCoroutine(QueerFunctions.CallMethodInDisabledObject(card, "AddExtraStrengthUi")/*  card.AddExtraStrengthUi()*/);
+                card.strength += Verses.extraStrength;
+                card.myExtraPoints.text = "+" + Verses.extraStrength.ToString();
             }
         }
     }

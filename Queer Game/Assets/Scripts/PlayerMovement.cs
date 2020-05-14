@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     bool cameraUpdate = true;
 
     float ogSpeed;
+    float startTime = 0; //Is used to make sure that the player is infact holding down the left mouse button for longer than 0.1 seconds
 
 
     private void Start()
@@ -23,16 +24,21 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MouseClickMovement();
         MouseDragMovement();
+        
+    }
 
+    private void MouseClickMovement()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             clickTime = Time.realtimeSinceStartup;
             Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            
 
-            if(Physics.Raycast(ray, out hit))
+
+            if (Physics.Raycast(ray, out hit))
             {
                 if (EventSystem.current.IsPointerOverGameObject(-1)) //If the mouse pointer is over a UI
                     return;
@@ -43,31 +49,43 @@ public class PlayerMovement : MonoBehaviour
                     agent.SetDestination(hit.point);
                 }
             }
-            
-        }
 
+        }
         
     }
-
+    
     private void MouseDragMovement()
     {
+        
+
+        if (Input.GetMouseButtonDown(0))
+            startTime = Time.time;
         
         Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Physics.Raycast(ray, out hit);
-
         
-
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && Time.time - startTime > 0.1f && EventSystem.current.IsPointerOverGameObject(-1) == false)
         {
-            agent.ResetPath();
+            //agent.ResetPath();
             transform.LookAt(hit.point, Vector3.up);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            //Vector3 playerPosToScrn = myCam.WorldToScreenPoint(transform.position);
-            //transform.eulerAngles = new Vector3(0,Vector2.SignedAngle(playerPosToScrn, Input.mousePosition),0);
-            //print(Vector2.Angle(playerPosToScrn, Input.mousePosition));
             agent.Move(transform.forward * Time.deltaTime * agent.speed);
+
+            NavMeshHit navMeshHit;
+            if (NavMesh.SamplePosition(hit.point, out navMeshHit, 1.0f, NavMesh.AllAreas))
+            {
+                agent.ResetPath();
+                //agent.SetDestination(navMeshHit.position);
+                transform.LookAt(/*hit.point*/ navMeshHit.position, Vector3.up);
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+                agent.Move(transform.forward * Time.deltaTime * agent.speed/5);
+            }
+
+
         }
+        else if(Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject(-1) == false)
+            agent.SetDestination(hit.point);
     }
 
     //Used in tutorial to stop camera from following player

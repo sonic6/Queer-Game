@@ -75,6 +75,8 @@ namespace QueerGame
                     {
                         card.gameObject.SetActive(true);
 
+                        if(Verses.extraStrength > 0)
+                            card.GetComponent<Verses>().myExtraPoints.text = "+" + Verses.extraStrength.ToString();
 
                         while (Vector3.Distance(card.transform.position, card.GetComponent<Verses>().myPosition.transform.position) > 1)
                         {
@@ -95,6 +97,18 @@ namespace QueerGame
                 }
                 MoveTowardsIsRunning = false;
             }
+            yield break;
+        }
+
+        public static IEnumerator CallMethodInDisabledObject(MonoBehaviour script, string message)
+        {
+            print("called");
+            while (script.gameObject.activeSelf == false)
+            {
+                print("wait");
+                yield return new WaitForEndOfFrame();
+            }
+            script.SendMessage(message);
             yield break;
         }
 
