@@ -61,8 +61,25 @@ public class EnemyController : MonoBehaviour
     public void WaitForPlayerAttack(Transform player)
     {
         me.SetDestination(transform.position);
-        me.transform.LookAt(player);
+        Vector3 velocity = new Vector3();
+        StartCoroutine(FacePlayer());
+        IEnumerator FacePlayer() //Keeps looking at player until they leave, meaning that caughtByPlayer = false
+        {
+            while (caughtByPlayer)
+            {
+                Vector3 ogRotation = transform.eulerAngles;
+                transform.LookAt(player.position);
+                Vector3 targetRotation = transform.eulerAngles;
+                transform.eulerAngles = ogRotation;
+
+                transform.eulerAngles = Vector3.SmoothDamp(transform.eulerAngles, targetRotation, ref velocity, .5f);
+                yield return new WaitForEndOfFrame();
+            }
+            yield break;
+        }
     }
+
+    
 
     void Animate()
     {
@@ -123,6 +140,7 @@ public class EnemyController : MonoBehaviour
                         canvasSize.localScale = new Vector3(canvasSize.localScale.x - subtraction * Time.deltaTime, canvasSize.localScale.y, canvasSize.localScale.z);
                         if (canvasSize.localScale.x <= 0)
                         {
+                            npc.GetComponent<NpcBehaviour>().horns.GetComponent<MeshRenderer>().enabled = true;
                             npc.GetComponent<NpcBehaviour>().convertedByEnemy = true;
                             currentTarget = null;
                             npcs.Remove(currentTarget);
@@ -151,6 +169,7 @@ public class EnemyController : MonoBehaviour
             canvasSize.localScale = new Vector3(canvasSize.localScale.x - subtraction * Time.deltaTime, canvasSize.localScale.y, canvasSize.localScale.z);
             if (canvasSize.localScale.x <= 0)
             {
+                npc.GetComponent<NpcBehaviour>().horns.GetComponent<MeshRenderer>().enabled = true;
                 npc.GetComponent<NpcBehaviour>().convertedByEnemy = true;
                 currentTarget = null;
                 npcs.Remove(currentTarget);
@@ -159,6 +178,16 @@ public class EnemyController : MonoBehaviour
                 StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
             }
             yield return new WaitForEndOfFrame();
+        }
+    }
+    public void Stop(float time)
+    {
+        StartCoroutine(BeStoppedByPlayer());
+        IEnumerator BeStoppedByPlayer()
+        {
+            me.speed = 0;
+            yield return new WaitForSeconds(time * 10);
+            me.speed = ogSpeed;
         }
     }
 
