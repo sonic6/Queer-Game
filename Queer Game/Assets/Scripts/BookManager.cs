@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using HutongGames.PlayMaker;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Collections;
 using QueerGame;
 
 public class BookManager : MonoBehaviour
@@ -43,7 +41,10 @@ public class BookManager : MonoBehaviour
 
     private void Awake()
     {
-        foreach(Transform pos in cardPositions)
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        foreach (Transform pos in cardPositions)
         {
             pos.gameObject.AddComponent<CardPosition>();
         }
@@ -52,6 +53,7 @@ public class BookManager : MonoBehaviour
         FillDeck();
         DrawNewCards();
     }
+    
 
     //Fills the card deck with 8 celebrity cards, 8 culture cards and 4 shade cards
     void FillDeck()
@@ -95,6 +97,15 @@ public class BookManager : MonoBehaviour
     void Start()
     {
         infoImage = setInfoImage;
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ClickedBook();
+            
+        }
     }
 
     public void DrawNewCards()
@@ -148,7 +159,7 @@ public class BookManager : MonoBehaviour
     }
     
 
-    private void ClickedBook()
+    public void ClickedBook()
     {
         DrawNewCards();
         if (InfoDealer.cardsInHand[0])
@@ -178,15 +189,15 @@ public class BookManager : MonoBehaviour
     }
 
     //Used by this gameobject to reactivate pages/cards gameobjects
-    public void ScatterPages()
-    {
-        foreach (PlayMakerFSM page in pages)
-        {
-            if(page != null)
-                page.gameObject.SetActive(true);
-            page.SendEvent("Move outside book");
-        }
-    }
+    //public void ScatterPages()
+    //{
+    //    foreach (PlayMakerFSM page in pages)
+    //    {
+    //        if(page != null)
+    //            page.gameObject.SetActive(true);
+    //        page.SendEvent("Move outside book");
+    //    }
+    //}
 
     //Used by FSM on pages. Sets the pages' gameobjects to enabled/disabled
     public void FlipPagesActiveState(GameObject myObject) 

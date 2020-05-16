@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Verses : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class Verses : MonoBehaviour
     {
         GetImageComponentFromChildren();
         CardColor();
+    }
+
+    private void OnMouseDown()
+    {
+        UseButton();
     }
 
     void CardColor()

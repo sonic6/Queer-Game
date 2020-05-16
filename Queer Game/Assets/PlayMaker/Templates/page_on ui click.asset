@@ -89,7 +89,7 @@ MonoBehaviour:
         - HutongGames.PlayMaker.Actions.SendMessage
         customNames:
         - 
-        actionEnabled: 01
+        actionEnabled: 00
         actionIsOpen: 01
         actionStartIndex: 00000000
         actionHashCodes: 91d45a00

@@ -69,7 +69,12 @@ namespace QueerGame
             if (MoveTowardsIsRunning == false)
             {
                 MoveTowardsIsRunning = true;
-                foreach(GameObject card in cardsInHand)
+
+                Cursor.visible = !Cursor.visible;
+                Cursor.lockState = CursorLockMode.None;
+                PlayerMovement.MoveActiveState = !PlayerMovement.MoveActiveState;
+
+                foreach (GameObject card in cardsInHand)
                 {
                     if (activeState == "yes")
                     {
