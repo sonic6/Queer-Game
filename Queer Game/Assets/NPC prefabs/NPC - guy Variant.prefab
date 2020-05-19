@@ -1,5 +1,151 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &8590221839199860873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7316306479409010408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f816fabc5bbaab24f878665f5b779027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &2883410407313464931
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7916376956893871380}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2125105618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7916376956893871380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aac015c36fce0b47bcc14083168502c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerSounds:
+  - {fileID: 8300000, guid: 4ef5aa4fb63bcda43a2d248f1946c790, type: 3}
+  - {fileID: 8300000, guid: 88effe4d7f0f05d4cb8cb58c1f2d9be9, type: 3}
+  - {fileID: 8300000, guid: 73e4ebe5e02ac79409893dcc8ea3c6d9, type: 3}
+  followSounds:
+  - {fileID: 8300000, guid: 6cb374615bf2f544b9701b3ef4f98778, type: 3}
+  - {fileID: 8300000, guid: ea69b94a8fa94004e84ecddc94ccb613, type: 3}
+  - {fileID: 8300000, guid: ded905766b9650544888fc903fd6ab28, type: 3}
+  walkingSpeed: 2
+  horns: {fileID: 0}
+  looping: 1
+  myAnimator: {fileID: 0}
+  player: {fileID: 0}
+  convertedByEnemy: 0
+  isFollower: 0
+  celebrityRequired: 10
+  cultureRequired: 6
+  celebrityUsed: 0
+  cultureUsed: 0
+  aiAgent: {fileID: 0}
+  timeToGetOtherNpc: 7
+  pointsCanvas: {fileID: 7827355029748422564, guid: 9c7d16406e8029541982f0dde0083fd3,
+    type: 3}
+  drainCanvas: {fileID: 0}
+  allowedDistance: 5
+  runningSpeed: 3.5
 --- !u!95 &966119970
 Animator:
   serializedVersion: 3
@@ -19,48 +165,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8590221839199860873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7316306479409010408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f816fabc5bbaab24f878665f5b779027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2125105618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7916376956893871380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aac015c36fce0b47bcc14083168502c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkingSpeed: 2
-  horns: {fileID: 0}
-  looping: 1
-  myAnimator: {fileID: 0}
-  player: {fileID: 0}
-  convertedByEnemy: 0
-  isFollower: 0
-  celebrityRequired: 10
-  cultureRequired: 6
-  celebrityUsed: 0
-  cultureUsed: 0
-  aiAgent: {fileID: 0}
-  timeToGetOtherNpc: 7
-  pointsCanvas: {fileID: 7827355029748422564, guid: 9c7d16406e8029541982f0dde0083fd3,
-    type: 3}
-  drainCanvas: {fileID: 0}
-  allowedDistance: 5
-  runningSpeed: 3.5
 --- !u!1001 &1632925317311975393
 PrefabInstance:
   m_ObjectHideFlags: 0

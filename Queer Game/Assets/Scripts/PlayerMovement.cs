@@ -124,6 +124,10 @@ public class PlayerMovement : MonoBehaviour
         if (other.GetComponent<TalkTrigger>() && other.transform.parent.GetComponent<NpcBehaviour>().convertedByEnemy == false)
         {
             Verses.myNpc = other.transform.parent.GetComponent<NpcBehaviour>();
+            AudioSource source = Verses.myNpc.GetComponent<AudioSource>();
+            AudioClip currentClip = Verses.myNpc.GetComponent<NpcBehaviour>().triggerSounds[Random.Range(0, Verses.myNpc.GetComponent<NpcBehaviour>().triggerSounds.Length)];
+            source.clip = currentClip;
+            source.Play();
         }
 
         //This else statement is just for debugging

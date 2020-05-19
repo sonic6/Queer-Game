@@ -10,7 +10,14 @@ using HutongGames.PlayMaker;
 public class NpcBehaviour : MonoBehaviour
 {
     /////////Several other scripts inherit variables from this script////////
-    
+
+
+    [UnityEngine.Tooltip("A random audio clip from this list is played when the player approaches this NPC")]
+    public AudioClip[] triggerSounds;
+
+    [UnityEngine.Tooltip("A random audio clip from this list is played when the player recruits this NPC")]
+    public AudioClip[] followSounds;
+
     [UnityEngine.Tooltip("The walking speed of this gameobjects ai agent")]
     public float walkingSpeed;
 
@@ -149,6 +156,11 @@ public class NpcBehaviour : MonoBehaviour
     {
         if (celebrityRequired <= celebrityUsed && cultureRequired <= cultureUsed || isPlayer == false)
         {
+            AudioSource source = GetComponent<AudioSource>();
+            AudioClip myClip = followSounds[Random.Range(0, followSounds.Length)];
+            source.clip = myClip;
+            source.Play();
+
             isFollower = true;
             FollowerCounter.AddFollower();
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;
