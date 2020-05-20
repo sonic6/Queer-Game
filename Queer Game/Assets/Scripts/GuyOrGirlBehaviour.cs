@@ -8,10 +8,13 @@ public class GuyOrGirlBehaviour : NpcBehaviour
 
     [Tooltip("The running speed of this gameobjects ai agent")]
     [SerializeField] float runningSpeed;
+
+    Vector3 animatorBodyOgRotation;
     
     private void Awake()
     {
         myAnimator = GetComponentInChildren<Animator>();
+        animatorBodyOgRotation = myAnimator.transform.eulerAngles;
         transform.GetChild(0).gameObject.AddComponent<TalkTrigger>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
         aiAgent = GetComponent<NavMeshAgent>();
@@ -61,5 +64,11 @@ public class GuyOrGirlBehaviour : NpcBehaviour
     private void FixedUpdate()
     {
         HandleAnimations();
+    }
+
+    private void Update()
+    {
+        //Just an easy fix for an issue where both Guy and Girl keep rotating for no apparent reason
+        myAnimator.transform.eulerAngles = new Vector3(animatorBodyOgRotation.x, transform.eulerAngles.y, animatorBodyOgRotation.z);
     }
 }

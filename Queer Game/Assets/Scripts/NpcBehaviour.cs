@@ -161,6 +161,8 @@ public class NpcBehaviour : MonoBehaviour
             source.clip = myClip;
             source.Play();
 
+            pointsCanvas.SetActive(false);
+
             isFollower = true;
             FollowerCounter.AddFollower();
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;

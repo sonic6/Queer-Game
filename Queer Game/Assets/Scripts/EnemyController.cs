@@ -54,7 +54,9 @@ public class EnemyController : MonoBehaviour
     {
         if (npcs.Count != 0)
         {
-            me.SetDestination(currentTarget.transform.position);
+            currentTarget = null;
+            StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
+            //me.SetDestination(currentTarget.transform.position);
         }
     }
 
@@ -177,8 +179,15 @@ public class EnemyController : MonoBehaviour
                 EnemyDistanceTrigger.pollutedNpcs.Add(npc.gameObject);
                 StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
             }
+            else if (npc.GetComponent<NpcBehaviour>().isFollower)
+            {
+                npcs.Remove(currentTarget);
+                StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
+                break;
+            }
             yield return new WaitForEndOfFrame();
         }
+        yield break;
     }
     public void Stop(float time)
     {

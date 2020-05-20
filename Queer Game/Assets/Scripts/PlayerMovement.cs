@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(CameraUpdate());
+        StartCoroutine(CameraUpdate());
         ogSpeed = agent.speed;
         myCam.gameObject.AddComponent<CameraCollision>();
     }
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MouseKeyboardMove(MoveActiveState);
+        
     }
 
     //private void MouseClickMovement()
@@ -112,7 +112,8 @@ public class PlayerMovement : MonoBehaviour
     {
         while (cameraUpdate)
         {
-            myCam.transform.position = new Vector3(cameraPivot.position.x + cameraPosition.x, cameraPivot.position.y + cameraPosition.y, cameraPivot.position.z + cameraPosition.z);
+            //myCam.transform.position = new Vector3(cameraPivot.position.x + cameraPosition.x, cameraPivot.position.y + cameraPosition.y, cameraPivot.position.z + cameraPosition.z);
+            MouseKeyboardMove(MoveActiveState);
             yield return new WaitForEndOfFrame();
         } 
         yield break;

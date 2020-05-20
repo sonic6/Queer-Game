@@ -26,7 +26,7 @@ public class EnemyDistanceTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<NpcBehaviour>() && pollutedNpcs.Contains(other.gameObject) == false)
+        if(other.GetComponent<NpcBehaviour>() && pollutedNpcs.Contains(other.gameObject) == false && other.GetComponent<NpcBehaviour>().isFollower == false)
         {
             EnemyController.currentTarget = other.gameObject;
             transform.parent.GetComponent<NavMeshAgent>().destination = other.transform.position;
