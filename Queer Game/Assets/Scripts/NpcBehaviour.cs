@@ -10,11 +10,19 @@ using HutongGames.PlayMaker;
 public class NpcBehaviour : MonoBehaviour
 {
     /////////Several other scripts inherit variables from this script////////
-    
+
+
+    [UnityEngine.Tooltip("A random audio clip from this list is played when the player approaches this NPC")]
+    public AudioClip[] triggerSounds;
+
+    [UnityEngine.Tooltip("A random audio clip from this list is played when the player recruits this NPC")]
+    public AudioClip[] followSounds;
+
     [UnityEngine.Tooltip("The walking speed of this gameobjects ai agent")]
     public float walkingSpeed;
 
-    private bool looping = true; //Used to start looping the FollowPlayerPosition coroutine
+    public GameObject horns = null; //The horns of this NPC
+    public bool looping = true; //Used to start looping the FollowPlayerPosition coroutine
     
     [HideInInspector] public Animator myAnimator;
     [HideInInspector] public GameObject player; //This is the player gameobject
@@ -39,7 +47,7 @@ public class NpcBehaviour : MonoBehaviour
     [SerializeField] float timeToGetOtherNpc;
 
     [UnityEngine.Tooltip("Insert a points canvas prefab here")]
-    [SerializeField] GameObject pointsCanvas;
+    public GameObject pointsCanvas;
 
     [HideInInspector] public Canvas drainCanvas;
     
@@ -50,6 +58,7 @@ public class NpcBehaviour : MonoBehaviour
         drainCanvas.gameObject.SetActive(false);
 
         GameObject points = Instantiate(pointsCanvas, transform);
+        pointsCanvas = points;
         points.GetComponent<Canvas>().worldCamera = Camera.main;
 
         int[] requirements = { celebrityRequired, cultureRequired };
@@ -63,13 +72,15 @@ public class NpcBehaviour : MonoBehaviour
             txt.color = BookManager.manager.celebrityColor;
             if (i > 0) txt.color = BookManager.manager.cultureColor;
         }
+
+        StartCoroutine(QueerFunctions.CanvasLookAtCamera(points.GetComponent<Canvas>()));
     }
 
     private void OnMouseDown()
     {
         if (isFollower && Verses.extraStrength != 0)
         {
-            RemoveExtraStrengthUi();
+            QueerFunctions.CallMethodInDisabledObject(this, "RemoveExtraStrengthUi");
             StartCoroutine(RecruitOthers());
         }
     }
@@ -120,17 +131,23 @@ public class NpcBehaviour : MonoBehaviour
         {
             StartCoroutine(RecruitOthers());
         }
-        yield return null;
+        yield break;
     }
 
-    IEnumerator FollowPlayerPosition() //Will work as an update to find the player's location but, can be stopped when needed
+    //Is called by other scripts to make coroutine FollowPlayerPosition work correctly. Otherwise the while loop doesn't actually loop for no apparent reason
+    public void CallFollow()
+    {
+        StartCoroutine(FollowPlayerPosition());
+    }
+
+    public IEnumerator FollowPlayerPosition() //Will work as an update to find the player's location but, can be stopped when needed
     {
         while(looping)
         {
             aiAgent.SetDestination(player.transform.position);
             yield return new WaitForFixedUpdate();
         }
-        yield return null;
+        yield break;
 
     }
 
@@ -139,32 +156,23 @@ public class NpcBehaviour : MonoBehaviour
     {
         if (celebrityRequired <= celebrityUsed && cultureRequired <= cultureUsed || isPlayer == false)
         {
+            AudioSource source = GetComponent<AudioSource>();
+            AudioClip myClip = followSounds[Random.Range(0, followSounds.Length)];
+            source.clip = myClip;
+            source.Play();
+
+            pointsCanvas.SetActive(false);
+
             isFollower = true;
             FollowerCounter.AddFollower();
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;
             aiAgent.stoppingDistance = 2; //The distance this npc will keep from the player while following
-
-            //if(isPlayer) //If this NPC was recruited by the player and not by an NPC
-            //{
-            //    //int nr = Verses.usedCards.Count;
-
-            //    //for (int i = 0; i < nr; i++) //Destroys the card gameobjects held in the static variable usedCards in Verses
-            //    //{
-            //    //    GameObject currentCard = Verses.usedCards[i];
-            //    //    BookManager.manager.oldPositions.Add(currentCard.GetComponent<Verses>().myPosition.transform);
-            //    //    Destroy(currentCard);
-            //    //}
-
-            //    //Verses.usedCards.RemoveRange(0, Verses.usedCards.Count);
-
-            //    BookManager.manager.DrawNewCards();
-            //}
-
+            
             Verses[] cardsInHand = BookManager.manager.pagesHolder.GetComponentsInChildren<Verses>();
             Verses.extraStrength++;
             foreach (Verses card in cardsInHand)
             {
-                //StartCoroutine(QueerFunctions.CallMethodInDisabledObject(card, "AddExtraStrengthUi")/*  card.AddExtraStrengthUi()*/);
+                QueerFunctions.CallMethodInDisabledObject(card, "AddExtraStrengthUi")/*  card.AddExtraStrengthUi()*/;
                 card.strength += Verses.extraStrength;
                 card.myExtraPoints.text = "+" + Verses.extraStrength.ToString();
             }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2003592594353682257}
   - component: {fileID: 2003592594353682262}
   - component: {fileID: 2003592594353682263}
+  - component: {fileID: 9151789620100917384}
   m_Layer: 8
   m_Name: Player - rigged
   m_TagString: Player
@@ -132,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d9a7239a6cd584cab1b3c9239dcdb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraPivot: {fileID: 0}
   myCam: {fileID: 0}
   agent: {fileID: 2003592594353682257}
   cameraPosition: {x: 5, y: 7, z: -4}
@@ -151,6 +153,14 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!81 &9151789620100917384
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003592594353682284}
+  m_Enabled: 1
 --- !u!95 &784040047
 Animator:
   serializedVersion: 3

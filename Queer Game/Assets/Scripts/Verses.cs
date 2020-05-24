@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Verses : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class Verses : MonoBehaviour
     {
         GetImageComponentFromChildren();
         CardColor();
+    }
+
+    private void OnMouseDown()
+    {
+        UseButton();
     }
 
     void CardColor()
@@ -92,8 +98,8 @@ public class Verses : MonoBehaviour
             }
 
             int value = int.Parse(culture.text);
-            if (value > myNpc.cultureUsed)
-                culture.text = (value - myNpc.cultureUsed).ToString();
+            if (value > strength /*myNpc.cultureUsed*/)
+                culture.text = (value - strength /*myNpc.cultureUsed*/).ToString();
             else
                 culture.text = "0";
         }
@@ -107,8 +113,8 @@ public class Verses : MonoBehaviour
             }
 
             int value = int.Parse(celeb.text);
-            if (value > myNpc.celebrityUsed)
-                celeb.text = (value - myNpc.celebrityUsed).ToString();
+            if (value > strength /*myNpc.celebrityUsed*/)
+                celeb.text = (value - strength /*myNpc.celebrityUsed*/).ToString();
             else
                 celeb.text = "0";
         }
@@ -120,10 +126,39 @@ public class Verses : MonoBehaviour
 
     void GroupNpcs()
     {
+        TMP_Text celeb = null;
+        TMP_Text culture = null;
+
         if (myGroup != null && KindOfCard == CardKind.Culture)
-            myGroup.argumentUsed += strength;
+        {
+            myGroup.cultureUsed += strength;
+            foreach (TMP_Text text in myGroup.GetComponentsInChildren<TMP_Text>())
+            {
+                if (text.gameObject.tag == "culture")
+                    culture = text;
+            }
+
+            int value = int.Parse(culture.text);
+            if (value > strength /*myGroup.cultureUsed*/)
+                culture.text = (value - strength /*myGroup.cultureUsed*/).ToString();
+            else
+                culture.text = "0";
+        }
         else if (myGroup != null && KindOfCard == CardKind.Celebrity)
-            myGroup.materialUsed += strength;
+        {
+            myGroup.celebrityUsed += strength;
+            foreach (TMP_Text text in myGroup.GetComponentsInChildren<TMP_Text>())
+            {
+                if (text.gameObject.tag == "celeb")
+                    celeb = text;
+            }
+
+            int value = int.Parse(celeb.text);
+            if (value > strength /*myGroup.celebrityUsed*/)
+                celeb.text = (value - strength /*myGroup.celebrityUsed*/).ToString();
+            else
+                celeb.text = "0";
+        }
 
         if (myGroup != null)
             myGroup.GroupFollowPlayer(); //Check if the group can follow the player and make them follow if so
@@ -134,7 +169,7 @@ public class Verses : MonoBehaviour
     {
         if (myEnemy != null && KindOfCard == CardKind.Shade)
         {
-            myEnemy.GetComponent<NavMeshAgent>().speed = 0;
+            myEnemy.Stop(strength);
         }
     }
 

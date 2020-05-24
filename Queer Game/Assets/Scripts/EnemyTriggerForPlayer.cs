@@ -8,6 +8,7 @@ public class EnemyTriggerForPlayer : MonoBehaviour
     {
         if (other.GetComponent<PlayerMovement>())
         {
+            myParent.caughtByPlayer = true;
             myParent.WaitForPlayerAttack(other.transform);
             Verses.myEnemy = myParent;
         }
@@ -21,6 +22,7 @@ public class EnemyTriggerForPlayer : MonoBehaviour
         {
             myParent.FindNewTarget();
             Verses.myEnemy = null;
+            myParent.caughtByPlayer = false;
         }
     }
 }

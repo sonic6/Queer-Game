@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: strength
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
         type: 3}
@@ -28,7 +28,7 @@ PrefabInstance:
     - target: {fileID: 295676979314090096, guid: 86492584827496149bf730155522254b,
         type: 3}
       propertyPath: myTitle
-      value: What you want to do is not neccessarily what you're gonna do
+      value: What you wanna do is not neccessarily what you're gonna do
       objectReference: {fileID: 0}
     - target: {fileID: 295676979314090097, guid: 86492584827496149bf730155522254b,
         type: 3}

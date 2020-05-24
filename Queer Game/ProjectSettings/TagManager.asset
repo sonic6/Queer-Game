@@ -9,6 +9,8 @@ TagManager:
   - tutorial handler
   - culture
   - celeb
+  - pivot
+  - level music
   layers:
   - Default
   - TransparentFX

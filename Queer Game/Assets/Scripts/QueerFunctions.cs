@@ -69,7 +69,12 @@ namespace QueerGame
             if (MoveTowardsIsRunning == false)
             {
                 MoveTowardsIsRunning = true;
-                foreach(GameObject card in cardsInHand)
+
+                Cursor.visible = !Cursor.visible;
+                Cursor.lockState = CursorLockMode.None;
+                PlayerMovement.MoveActiveState = !PlayerMovement.MoveActiveState;
+
+                foreach (GameObject card in cardsInHand)
                 {
                     if (activeState == "yes")
                     {
@@ -100,15 +105,20 @@ namespace QueerGame
             yield break;
         }
 
-        public static IEnumerator CallMethodInDisabledObject(MonoBehaviour script, string message)
+        public static void CallMethodInDisabledObject(MonoBehaviour script, string message)
         {
-            print("called");
-            while (script.gameObject.activeSelf == false)
+            while (script.gameObject.activeSelf == false) {}
+            script.SendMessage(message);
+        }
+
+        public static IEnumerator CanvasLookAtCamera(Canvas canvas)
+        {
+            while(canvas)
             {
-                print("wait");
+                canvas.transform.LookAt(Camera.main.transform);
+                canvas.transform.eulerAngles = new Vector3(canvas.transform.eulerAngles.x, canvas.transform.eulerAngles.y, 0);
                 yield return new WaitForEndOfFrame();
             }
-            script.SendMessage(message);
             yield break;
         }
 
