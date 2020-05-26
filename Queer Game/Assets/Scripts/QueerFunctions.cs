@@ -7,8 +7,7 @@ namespace QueerGame
     public class QueerFunctions : MonoBehaviour
     {
         public static bool MoveTowardsIsRunning = false;
-
-
+        
         /// <summary>
         /// Finds the distance in 3D space between two Vector3 variables
         /// </summary>
@@ -64,7 +63,7 @@ namespace QueerGame
             return sourceList;
         }
 
-        public static IEnumerator OpenCloseBook(List<GameObject> cardsInHand, string activeState = "default")
+        public static IEnumerator OpenCloseBook(List<GameObject> cardsInHand, string activeState/* = "default"*/)
         {
             if (MoveTowardsIsRunning == false)
             {
