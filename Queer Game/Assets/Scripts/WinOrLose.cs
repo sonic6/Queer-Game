@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class WinOrLose : MonoBehaviour
 {
     [SerializeField] GameObject uiScreen;
-    private static GameObject myUiScreen;
+    public static GameObject myUiScreen;
 
     private void Start()
     {

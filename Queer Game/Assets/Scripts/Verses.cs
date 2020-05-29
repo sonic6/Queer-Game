@@ -88,7 +88,7 @@ public class Verses : MonoBehaviour
         TMP_Text celeb = null;
         TMP_Text culture = null;
 
-        if (myNpc != null && KindOfCard == CardKind.Culture)
+        if (myNpc != null && myNpc.isFollower == false && KindOfCard == CardKind.Culture)
         {
             myNpc.cultureUsed += strength;
             foreach(TMP_Text text in myNpc.GetComponentsInChildren<TMP_Text>())
@@ -103,7 +103,7 @@ public class Verses : MonoBehaviour
             else
                 culture.text = "0";
         }
-        else if (myNpc != null && KindOfCard == CardKind.Celebrity)
+        else if (myNpc != null && myNpc.isFollower == false && KindOfCard == CardKind.Celebrity)
         {
             myNpc.celebrityUsed += strength;
             foreach (TMP_Text text in myNpc.GetComponentsInChildren<TMP_Text>())

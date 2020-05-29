@@ -5,6 +5,7 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
+    public static EnemyController mainEnemy;
     List<NpcBehaviour> myNpcGroup = new List<NpcBehaviour>();
     public static GameObject currentTarget;
     public List<GameObject> npcs; //For some reason causes the code not to work when private
@@ -22,6 +23,7 @@ public class EnemyController : MonoBehaviour
     
     void Start()
     {
+        mainEnemy = this;
         me = GetComponent<NavMeshAgent>();
         ogSpeed = me.speed;
         myAnimator = GetComponentInChildren<Animator>();
@@ -113,6 +115,7 @@ public class EnemyController : MonoBehaviour
             myNpcGroup = other.GetComponent<GroupTool>().npcs;
             foreach (NpcBehaviour npc in myNpcGroup)
             {
+                npc.GetComponent<NpcBehaviour>().drainCanvas.gameObject.SetActive(true);
                 if (npc.gameObject == currentTarget)
                 {
                     Canvas drainThis = currentTarget.GetComponent<NpcBehaviour>().drainCanvas;
@@ -177,16 +180,19 @@ public class EnemyController : MonoBehaviour
                 npcs.Remove(currentTarget);
                 FollowerCounter.CheckNonPollutedNpcs();
                 EnemyDistanceTrigger.pollutedNpcs.Add(npc.gameObject);
-                StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
+                //StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
             }
-            else if (npc.GetComponent<NpcBehaviour>().isFollower)
+            if (npc.GetComponent<NpcBehaviour>().isFollower)
             {
+
+                currentTarget = null;
                 npcs.Remove(currentTarget);
-                StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
                 break;
             }
             yield return new WaitForEndOfFrame();
         }
+        Destroy(canvasSize.gameObject);
+        StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
         yield break;
     }
     public void Stop(float time)

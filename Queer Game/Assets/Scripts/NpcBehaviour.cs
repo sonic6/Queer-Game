@@ -21,8 +21,8 @@ public class NpcBehaviour : MonoBehaviour
     [UnityEngine.Tooltip("The walking speed of this gameobjects ai agent")]
     public float walkingSpeed;
 
-    public GameObject horns = null; //The horns of this NPC
-    public bool looping = true; //Used to start looping the FollowPlayerPosition coroutine
+    [HideInInspector] public GameObject horns = null; //The horns of this NPC
+    [HideInInspector] public bool looping = true; //Used to start looping the FollowPlayerPosition coroutine
     
     [HideInInspector] public Animator myAnimator;
     [HideInInspector] public GameObject player; //This is the player gameobject
@@ -121,13 +121,22 @@ public class NpcBehaviour : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        yield return new WaitForSeconds(timeToGetOtherNpc);
+        //If while converting other NPC, the player converts them first then move on
+        float myTime = timeToGetOtherNpc;
+        while(myTime > 0)
+        {
+            myTime--;
+            yield return new WaitForSeconds(1);
+            if (closest.GetComponent<NpcBehaviour>().isFollower == true)
+                break;
+        }
+
         if (closest.GetComponent<NpcBehaviour>().isFollower == false && convertedByEnemy == false) //Good to check again in case the player or enemy got to the NPC first
         {
             closest.GetComponent<NpcBehaviour>().FollowPlayer(false); //False means this is not the player doing the recruiting, but will still recruit the NPC
         }
 
-        if(Time.timeScale != 0) //If the game hasn't been won or lost yet
+        if(WinOrLose.myUiScreen.gameObject.activeSelf == false) //If the game hasn't been won or lost yet
         {
             StartCoroutine(RecruitOthers());
         }
@@ -167,7 +176,13 @@ public class NpcBehaviour : MonoBehaviour
             FollowerCounter.AddFollower();
             transform.GetChild(0).GetComponent<SphereCollider>().enabled = false;
             aiAgent.stoppingDistance = 2; //The distance this npc will keep from the player while following
+
+            if (EnemyController.currentTarget == gameObject)
+            {
+                EnemyController.mainEnemy.FindNewTarget();
+            }
             
+
             Verses[] cardsInHand = BookManager.manager.pagesHolder.GetComponentsInChildren<Verses>();
             Verses.extraStrength++;
             foreach (Verses card in cardsInHand)

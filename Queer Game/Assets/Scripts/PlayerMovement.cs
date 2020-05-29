@@ -23,71 +23,8 @@ public class PlayerMovement : MonoBehaviour
         myCam.gameObject.AddComponent<CameraCollision>();
     }
 
-    float clickTime = 0;
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    //private void MouseClickMovement()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        clickTime = Time.realtimeSinceStartup;
-    //        Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
-    //        RaycastHit hit;
-
-
-    //        if (Physics.Raycast(ray, out hit))
-    //        {
-    //            if (EventSystem.current.IsPointerOverGameObject(-1)) //If the mouse pointer is over a UI
-    //                return;
-    //            else if (hit.collider.gameObject.GetComponent<NpcBehaviour>() && hit.collider.gameObject.GetComponent<NpcBehaviour>().isFollower)
-    //                return; //If the NPC that was clicked on is a follower, do not go to towards them. Other scripts will handle what happens
-    //            else
-    //            {
-    //                agent.SetDestination(hit.point);
-    //            }
-    //        }
-
-    //    }
-        
-    //}
+    //float clickTime = 0;
     
-    //private void MouseDragMovement()
-    //{
-        
-
-    //    if (Input.GetMouseButtonDown(0))
-    //        startTime = Time.time;
-        
-    //    Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
-    //    RaycastHit hit;
-    //    Physics.Raycast(ray, out hit);
-        
-    //    if (Input.GetMouseButton(0) && Time.time - startTime > 0.1f && EventSystem.current.IsPointerOverGameObject(-1) == false)
-    //    {
-    //        //agent.ResetPath();
-    //        transform.LookAt(hit.point, Vector3.up);
-    //        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-    //        agent.Move(transform.forward * Time.deltaTime * agent.speed);
-
-    //        NavMeshHit navMeshHit;
-    //        if (NavMesh.SamplePosition(hit.point, out navMeshHit, 1.0f, NavMesh.AllAreas))
-    //        {
-    //            agent.ResetPath();
-    //            //agent.SetDestination(navMeshHit.position);
-    //            transform.LookAt(/*hit.point*/ navMeshHit.position, Vector3.up);
-    //            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-    //            agent.Move(transform.forward * Time.deltaTime * agent.speed/5);
-    //        }
-
-
-    //    }
-    //    else if(Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject(-1) == false)
-    //        agent.SetDestination(hit.point);
-    //}
 
     void MouseKeyboardMove(bool active)
     {

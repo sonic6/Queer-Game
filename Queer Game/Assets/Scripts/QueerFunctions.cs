@@ -70,7 +70,7 @@ namespace QueerGame
                 MoveTowardsIsRunning = true;
 
                 Cursor.visible = !Cursor.visible;
-                Cursor.lockState = CursorLockMode.None;
+                //Cursor.lockState = CursorLockMode.None;
                 PlayerMovement.MoveActiveState = !PlayerMovement.MoveActiveState;
 
                 foreach (GameObject card in cardsInHand)
@@ -78,7 +78,6 @@ namespace QueerGame
                     if (activeState == "yes")
                     {
                         card.gameObject.SetActive(true);
-
                         if(Verses.extraStrength > 0)
                             card.GetComponent<Verses>().myExtraPoints.text = "+" + Verses.extraStrength.ToString();
 
@@ -100,6 +99,7 @@ namespace QueerGame
                     }
                 }
                 MoveTowardsIsRunning = false;
+                //Cursor.visible = !Cursor.visible;
             }
             yield break;
         }

@@ -41,7 +41,7 @@ public class BookManager : MonoBehaviour
 
     private void Awake()
     {
-        //Cursor.visible = false;
+        Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
 
         foreach (Transform pos in cardPositions)
@@ -99,7 +99,7 @@ public class BookManager : MonoBehaviour
         infoImage = setInfoImage;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -160,11 +160,9 @@ public class BookManager : MonoBehaviour
 
     public void ClickedBook()
     {
-        print(InfoDealer.cardsInHand[0].scene.name);
         DrawNewCards();
         if (InfoDealer.cardsInHand[0] == true)
         {
-            print("working");
             GameObject card = InfoDealer.cardsInHand[0]; //No need to check all activestates of cards in hand, just one is enough for this
 
             if (card.activeSelf == false)
@@ -176,7 +174,6 @@ public class BookManager : MonoBehaviour
                 StartCoroutine(QueerFunctions.OpenCloseBook(InfoDealer.cardsInHand, "no"));
             }
         }
-        else print("not working");
         
     }
 
