@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,6 +12,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TMP_Text myText;
 
     Animator CameraAnimator;
+    float skyRotation = 0;
 
     //Becomes true on the very first button or mouse click the player clicks
     bool fadeStart = false;
@@ -42,6 +44,10 @@ public class MainMenu : MonoBehaviour
                 }
             }
         }
+        
+        RenderSettings.skybox.SetFloat("_Rotation", skyRotation);
+        skyRotation = .1f + skyRotation;
+
     }
 
     IEnumerator FadeInOut()
