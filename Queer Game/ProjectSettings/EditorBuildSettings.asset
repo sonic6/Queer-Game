@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu placeholder.unity
-    guid: 7c2464802c90e644381416bdbd911208
+    path: Assets/Scenes/main menu.unity
+    guid: 82bc833191576304ebe9b62d3f0145fd
   - enabled: 1
     path: Assets/Scenes/Park Tutorial Level.unity
     guid: 6033c7e9a5b101347aeb0f3339806500
