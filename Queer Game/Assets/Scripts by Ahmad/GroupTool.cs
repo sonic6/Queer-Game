@@ -14,7 +14,7 @@ public class GroupTool : MonoBehaviour
     [HideInInspector] public int celebrityUsed;
 
     [Tooltip("Insert a points canvas prefab here")]
-    [SerializeField] GameObject pointsCanvas;
+    public GameObject pointsCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +43,7 @@ public class GroupTool : MonoBehaviour
     void SetupPointsCanvas()
     {
         GameObject points = Instantiate(pointsCanvas, transform);
+        //pointsCanvas = points; //The variable holding a prefab holds the newly instantiated gameobject instead
         points.GetComponent<Canvas>().worldCamera = Camera.main;
 
         int[] requirements = { celebrityRequired, cultureRequired };
@@ -93,7 +94,7 @@ public class GroupTool : MonoBehaviour
             Verses.extraStrength += npcs.Count;
             foreach (Verses card in cardsInHand)
             {
-                card.strength += Verses.extraStrength;
+                card.strength = card.ogStrength + Verses.extraStrength;
                 card.myExtraPoints.text = "+" + Verses.extraStrength.ToString();
             }
 

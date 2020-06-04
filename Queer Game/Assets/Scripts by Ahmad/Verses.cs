@@ -19,9 +19,9 @@ public class Verses : MonoBehaviour
     [SerializeField] Text myStrength;
     public Text myExtraPoints;
 
-    private int ogStrength; //The original strength of this card
+    [HideInInspector] public int ogStrength; //The original strength of this card
     public int strength; //The main strength of this card
-    public static int extraStrength = 0; //The strength that's added per follower. Equals 0 on start
+    public static int extraStrength; //The strength that's added per follower. Equals 0 on start
     public static NpcBehaviour myNpc;
     public static GroupTool myGroup;
     public static EnemyController myEnemy;
@@ -33,6 +33,7 @@ public class Verses : MonoBehaviour
 
     private void Awake()
     {
+        extraStrength = 0;
         ogStrength = strength;
         myStrength.text = strength.ToString();
     }

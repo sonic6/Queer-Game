@@ -196,6 +196,10 @@ GameObject:
   - component: {fileID: 1681417130}
   - component: {fileID: 1681417131}
   - component: {fileID: 2947869972799500456}
+  - component: {fileID: 1434124638763889155}
+  - component: {fileID: 947018874431968648}
+  - component: {fileID: 4436378311560641290}
+  - component: {fileID: 7727664975254344032}
   m_Layer: 5
   m_Name: Tutorial - Text box
   m_TagString: tutorial handler
@@ -4817,7 +4821,7 @@ MonoBehaviour:
     EnableBreakpoints: 1
     editorFlags: 1
     activeStateName: 
-    mouseEvents: 0
+    mouseEvents: 1
     handleLevelLoaded: 0
     handleTriggerEnter2D: 0
     handleTriggerExit2D: 0
@@ -4967,6 +4971,63 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1434124638763889155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681417125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1775717093, guid: e743331561ef77147ae48cda9bcb8209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetFSMs:
+  - {fileID: 1681417130}
+--- !u!114 &947018874431968648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681417125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 82786459, guid: e743331561ef77147ae48cda9bcb8209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetFSMs:
+  - {fileID: 1681417130}
+--- !u!114 &4436378311560641290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681417125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e95858e6f8c0844ad340be6bba1f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFsms:
+  - {fileID: 1681417130}
+  button: {fileID: 0}
+--- !u!114 &7727664975254344032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681417125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad323e26f6475e1418442dbe3aa94632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFsms:
+  - {fileID: 1681417130}
 --- !u!1 &495893116541576292
 GameObject:
   m_ObjectHideFlags: 0
@@ -6916,6 +6977,8 @@ GameObject:
   - component: {fileID: 3902218851718145216}
   - component: {fileID: 3902218851718145219}
   - component: {fileID: 349775741940977536}
+  - component: {fileID: 1518300762807199292}
+  - component: {fileID: 5117583631987429091}
   m_Layer: 5
   m_Name: Book
   m_TagString: Untagged
@@ -7566,7 +7629,7 @@ MonoBehaviour:
     EnableBreakpoints: 1
     editorFlags: 1
     activeStateName: 
-    mouseEvents: 0
+    mouseEvents: 1
     handleLevelLoaded: 0
     handleTriggerEnter2D: 0
     handleTriggerExit2D: 0
@@ -7697,6 +7760,34 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1518300762807199292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902218851718145221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1775717093, guid: e743331561ef77147ae48cda9bcb8209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetFSMs:
+  - {fileID: 3902218851718145217}
+--- !u!114 &5117583631987429091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902218851718145221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad323e26f6475e1418442dbe3aa94632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFsms:
+  - {fileID: 3902218851718145217}
 --- !u!1 &3902218851909370345
 GameObject:
   m_ObjectHideFlags: 0
@@ -8378,7 +8469,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4316116479199781369}
-        m_MethodName: HomeScreen
+        m_MethodName: LoadScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

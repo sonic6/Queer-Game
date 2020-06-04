@@ -64,7 +64,7 @@ public class NpcBehaviour : MonoBehaviour
 
         int[] requirements = { celebrityRequired, cultureRequired };
         List<Transform> childs = new List<Transform>(points.GetComponentsInChildren<Transform>());
-        childs.Remove(childs[0]);
+        childs.Remove(childs[0]); //Can't remember exactly what this was for. But I'm pretty sure it's to remove the parent gameobject from the list
 
         for (int i = 0; i < 2; i++)
         {
@@ -175,7 +175,8 @@ public class NpcBehaviour : MonoBehaviour
             if (npc.isFollower == false && npc.convertedByEnemy == false)
                 npc.FollowPlayer(false);
         }
-        
+        group.GetComponentInChildren<TMP_Text>().transform.parent.gameObject.SetActive(false);
+
 
         if (WinOrLose.myUiScreen.gameObject.activeSelf == false) //If the game hasn't been won or lost yet
         {

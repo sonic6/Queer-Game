@@ -167,6 +167,7 @@ public class MainMenu : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
             PauseMenu.ResetVariables();
+            yield return new WaitForEndOfFrame(); //To make sure the reset variables function ran before moving to the next scene
             SceneManager.LoadScene(sceneNumber);
         }
         
