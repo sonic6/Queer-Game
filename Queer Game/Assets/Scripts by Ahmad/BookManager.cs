@@ -162,7 +162,7 @@ public class BookManager : MonoBehaviour
     public void ClickedBook()
     {
         DrawNewCards();
-        if (InfoDealer.cardsInHand[0] == true)
+        if (InfoDealer.cardsInHand.Count > 0)
         {
             GameObject card = InfoDealer.cardsInHand[0]; //No need to check all activestates of cards in hand, just one is enough for this
 
@@ -175,7 +175,9 @@ public class BookManager : MonoBehaviour
                 StartCoroutine(QueerFunctions.OpenCloseBook(InfoDealer.cardsInHand, "no"));
             }
         }
-        
+        else if(InfoDealer.cardsInHand.Count == 0)
+            PlayerMovement.MoveActiveState = true;
+
     }
 
     

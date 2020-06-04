@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using TMPro;
 
 public class EnemyController : MonoBehaviour
 {
@@ -135,6 +136,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator PolluteGroup()
     {
+        int amountConverted = 0;
         subtraction = currentTarget.GetComponentInChildren<Canvas>().transform.localScale.x / timeToPollute;
         while (foundGroup == true)
         {
@@ -156,18 +158,25 @@ public class EnemyController : MonoBehaviour
                             FollowerCounter.CheckNonPollutedNpcs();
                             EnemyDistanceTrigger.pollutedNpcs.Add(npc.gameObject);
                             StartCoroutine(GetComponentInChildren<EnemyDistanceTrigger>().ExpandTrigger());
+
+                            amountConverted++;
+                            canvasSize.gameObject.SetActive(false);
                         }
                     }
                 }
                 
             }
+            
 
-            if (currentTarget == myNpcGroup[myNpcGroup.Count - 1])
+            if (/*currentTarget == myNpcGroup[myNpcGroup.Count - 1]*/ amountConverted == myNpcGroup.Count)
             {
                 foundGroup = false;
+                break;
             }
             yield return new WaitForEndOfFrame();
         }
+        myNpcGroup[0].partOfGroup.convertedByEnemy = true;
+        myNpcGroup[0].partOfGroup.GetComponentInChildren<TMP_Text>().transform.parent.gameObject.SetActive(false);
     }
 
     IEnumerator PolluteNpc(GameObject npc)
@@ -180,6 +189,7 @@ public class EnemyController : MonoBehaviour
             {
                 npc.GetComponent<NpcBehaviour>().horns.GetComponent<MeshRenderer>().enabled = true;
                 npc.GetComponent<NpcBehaviour>().convertedByEnemy = true;
+                npc.GetComponent<NpcBehaviour>().pointsCanvas.SetActive(false);
                 currentTarget = null;
                 npcs.Remove(currentTarget);
                 FollowerCounter.CheckNonPollutedNpcs();

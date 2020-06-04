@@ -16,6 +16,11 @@ public class GroupTool : MonoBehaviour
     [Tooltip("Insert a points canvas prefab here")]
     public GameObject pointsCanvas;
 
+    [HideInInspector] public int currentCeleb;
+    [HideInInspector] public int currentCulture;
+
+    public bool convertedByEnemy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +43,8 @@ public class GroupTool : MonoBehaviour
 
         Invoke("SetupPointsCanvas", 0.1f); //To make sure all individual NPCs have setup their Canvases onStart first, then do this after .1 seconds
 
+        currentCeleb = celebrityRequired;
+        currentCulture = cultureRequired;
     }
 
     void SetupPointsCanvas()

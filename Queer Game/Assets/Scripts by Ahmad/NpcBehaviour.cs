@@ -51,10 +51,20 @@ public class NpcBehaviour : MonoBehaviour
     [HideInInspector] public Canvas drainCanvas;
 
     [HideInInspector] public GroupTool partOfGroup = null; //If this NPC is part of a group, this variable refers to its group
-    
+
+    [HideInInspector] public int currentCeleb;
+    [HideInInspector] public int currentCulture;
+
+    private bool isRecruiter = false; //If true, it means this NPC is already gone to find followers
 
     private void Start()
     {
+        celebrityUsed = 0;
+        cultureUsed = 0;
+
+        currentCeleb = celebrityRequired;
+        currentCulture = cultureRequired;
+
         drainCanvas = GetComponentInChildren<Canvas>();
         drainCanvas.gameObject.SetActive(false);
 
@@ -79,8 +89,9 @@ public class NpcBehaviour : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isFollower && Verses.extraStrength != 0)
+        if (isFollower && Verses.extraStrength != 0 && isRecruiter == false)
         {
+            isRecruiter = true;
             StartCoroutine(QueerFunctions.CallMethodInDisabledObject(this, "RemoveExtraStrengthUi"));
             StartCoroutine(RecruitOthers());
         }

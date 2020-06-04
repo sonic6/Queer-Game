@@ -18,6 +18,8 @@ public class PauseMenu : MonoBehaviour
     //This resets important variables that need to reset between scenes
     public static void ResetVariables()
     {
+        Time.timeScale = 1;
+        PlayerMovement.MoveActiveState = true;
         FollowerCounter.followers = 0;
         Verses.extraStrength = 0;
         InfoDealer.cardsInHand.Clear();

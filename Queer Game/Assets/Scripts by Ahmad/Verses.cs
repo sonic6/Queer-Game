@@ -94,11 +94,17 @@ public class Verses : MonoBehaviour
                     culture = text;
             }
 
-            int value = int.Parse(culture.text);
+            int value = /*int.Parse(culture.text)*/ myNpc.currentCulture;
             if (value > strength)
+            {
                 culture.text = (value - strength).ToString();
+                myNpc.currentCulture = value - strength;
+            }
             else
+            {
                 culture.text = "0";
+                myNpc.currentCulture = 0;
+            }
         }
         else if (myNpc != null && myNpc.isFollower == false && KindOfCard == CardKind.Celebrity)
         {
@@ -109,11 +115,17 @@ public class Verses : MonoBehaviour
                     celeb = text;
             }
 
-            int value = int.Parse(celeb.text);
+            int value = /*int.Parse(celeb.text)*/ myNpc.currentCeleb;
             if (value > strength)
+            {
                 celeb.text = (value - strength).ToString();
+                myNpc.currentCeleb = value - strength;
+            }
             else
+            {
                 celeb.text = "0";
+                myNpc.currentCeleb = 0;
+            }
         }
         
 
@@ -135,11 +147,17 @@ public class Verses : MonoBehaviour
                     culture = text;
             }
 
-            int value = int.Parse(culture.text);
+            int value = /*int.Parse(culture.text)*/ myGroup.currentCulture;
             if (value > strength)
+            {
                 culture.text = (value - strength).ToString();
+                myGroup.currentCulture = value - strength;
+            }
             else
+            {
                 culture.text = "0";
+                myGroup.currentCulture = 0;
+            }
         }
         else if (myGroup != null && KindOfCard == CardKind.Celebrity)
         {
@@ -150,11 +168,17 @@ public class Verses : MonoBehaviour
                     celeb = text;
             }
 
-            int value = int.Parse(celeb.text);
-            if (value > strength )
-                celeb.text = (value - strength ).ToString();
+            int value = /*int.Parse(celeb.text)*/ myGroup.currentCeleb;
+            if (value > strength)
+            {
+                celeb.text = (value - strength).ToString();
+                myGroup.currentCeleb = value - strength;
+            }
             else
+            {
                 celeb.text = "0";
+                myGroup.currentCeleb = 0;
+            }
         }
 
         if (myGroup != null)
